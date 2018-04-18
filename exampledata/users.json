@@ -1,0 +1,20 @@
+[
+    {
+        "fields": {
+            "username": "Admin",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "last_login": "2018-04-13T12:27:57.969Z",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$36000$Oo3mZQSYBTLn$7I4/G2pbQyWsgk2yfqke3NMZnfiv33G+dqLjegq7J14=",
+            "email": "admin@basicoo.com",
+            "date_joined": "2018-03-13T12:01:38.657Z"
+        },
+        "model": "auth.user",
+        "pk": 1
+    }
+]

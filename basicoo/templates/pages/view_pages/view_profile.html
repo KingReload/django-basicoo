@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+	<h2>Profile</h2>
+	<form method="post" class="page_form" enctype="multipart/form-data">
+		{% csrf_token %}
+		{% for field in form %}
+			<p>
+				{{ field.label_tag }}<br>
+				{{ field }}
+				{% if field.help_text %}
+					<small class="help-field">{{ field.help_text }}</small>
+				{% endif %}
+				{% for error in field.errors %}
+					<p class="error-field">{{ error }}</p>
+				{% endfor %}
+			</p>
+		{% endfor %}
+
+		<button type="submit" class="btn btn-primary">Send</button>
+	</form>
+{% endblock %}

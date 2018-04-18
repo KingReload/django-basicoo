@@ -1,0 +1,50 @@
+NOTE: server runs on localhost:8000
+
+Windows:
+
+Install bash:
+	lxrun /install
+
+Windows:
+
+To install python on Windows run the command:
+	msiexec /i python-3.6.2.msi
+Or download python from the following website:
+	https://www.python.org/downloads/release/python-362/
+
+To install pip, securely create a textfile with a copy paste of the website:
+	https://bootstrap.pypa.io/get-pip.py
+Then save the textfile as a .py file name the file 'get-pip'
+Run then the following command in the same directory as the get-pip.py file:
+	python get-pip.py
+
+To install virtualenv run the following command:
+	pip install virtualenv
+	
+To install pillow run the following command:
+	pip install pillow
+
+Install Django run the following command:
+	pip install django
+
+Runs server:
+	python manage.py runserver
+
+----------------------------------------------------------------------------------
+Linux / Ubuntu:
+
+To install python on Ubuntu do the following:
+	sudo apt-get update
+	sudo apt-get -y upgrade
+
+To install pip run this command:
+	sudo apt-get install python3-pip
+
+To install virtualenv run the following command:
+	pip3 install virtualenv
+
+To install pillow run the following command:
+	pip3 install pillow
+
+Install Django run the following command:
+	pip3 install Django

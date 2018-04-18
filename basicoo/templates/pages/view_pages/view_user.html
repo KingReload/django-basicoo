@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}User{% endblock %}
+
+{% block content %}
+	<div class="wrapper">
+		<h1>User</h1>
+		<a class="table-grid btn btn-primary" tabindex="-1" href="{% url 'core:get-users' %}">Back</a>
+		<div id="users" class="table-grid">
+			<table id="users-table" class="bordered gray">
+				{% for item in user_values %}
+					<thead>
+						<tr>
+							<th class="col22 blue">{{ item.username }}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% if item.first_name %}
+							<tr>
+								<td><b>First Name:</b> {{ item.first_name }}</td>
+							</tr>
+						{% endif %}
+						{% if item.last_name %}
+							<tr>
+								<td><b>Last Name:</b> {{ item.last_name }}</td>
+							</tr>
+						{% endif %}
+						<tr>
+							<td><b>Email:</b> {{ item.email }}</td>
+						</tr>
+					</tbody>
+				{% endfor %}
+
+				{% for item in extra_values %}
+					<tbody>
+						{% if item.country %}
+							<tr>
+								<td><b>Country:</b> {{ item.country }}</td>
+							</tr>
+						{% endif %}
+						{% if item.city %}
+							<tr>
+								<td><b>City:</b> {{ item.city }}</td>
+							</tr>
+						{% endif %}
+						{% for staff in user_values %}
+							{% if not staff.is_staff and request.user.is_staff or request.user.is_superuser %}
+								{% if item.address %}
+									<tr>
+										<td><b>Address:</b> {{ item.address }}</td>
+									</tr>
+								{% endif %}
+								{% if item.postalcode %}
+									<tr>
+										<td><b>Postalcode:</b> {{ item.postalcode }}</td>
+									</tr>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					</tbody>
+				{% endfor %}
+			</table>
+			{% if request.user.is_superuser %}
+				<table id="users-table" class="bordered gray table-margin">
+					{% for item in user_values %}
+						<form id="form-table" method="post" class="page_form">
+							{% csrf_token %}
+							<select name="permission" id="id_permission">
+								<option value="client">Client</option>
+								<option value="staff">Staff</option>
+								<option value="admin">Admin</option>
+							</select>
+							
+							<button class="table-grid btn btn-primary align-view" type="submit">Update</button>
+						</form>
+						
+						<button class="clickable-row table-grid btn btn-primary align-view" data-href="{% url 'core:ban-user' %}?id={{ item.id }}">
+							{% if item.is_active %}
+								Set inactive
+							{% else %}
+								Set active
+							{% endif %}
+						</button>
+						<button class="clickable-row table-grid btn btn-primary align-view" data-href="{% url 'core:delete-user' %}?id={{ item.id }}">Delete</button>
+					{% endfor %}
+				</table>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

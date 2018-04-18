@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load userdata_tags %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+	<div class="wrapper">
+		<h1>Users</h1>
+		<a class="table-grid btn btn-primary" tabindex="-1" href="{% url 'core:get-users' %}">All</a>
+		{% include 'partials/alphabet.html' %}
+		<div id="users" class="table-grid">
+			<form method="post">
+				{% csrf_token %}
+				<table id="users-table" class="bordered gray">
+					<thead>
+						<tr>
+							<th class="col22 blue">Username</th>
+							<th class="col22 blue">Permission</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in users %}
+							<tr id="{{ user.id }}">
+								{% if user.is_superuser %}
+									<td>{{ user.username }}</td>
+								{% elif user.is_authenticated %}
+									<td class="clickable-row  {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">{{ user.username }}</td>
+								{% endif %}
+								
+								{% if user.is_superuser %}
+									<td>Admin</td>
+								{% elif user.is_staff %}
+									<td class="clickable-row  {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">Staff</td>
+								{% else %}
+									<td class="clickable-row  {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">Client</td>
+								{% endif %}
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+# Paths
+/.env/
+
+
+# Generated content
+/basicoo.egg-info
+
+
+# Build output
+/node_modules/
+/packages/
+/dist/
+/.eggs/
+
+
+# Static files
+basicoo/static/*
+
+
+# Editor files
+/.idea
+/.vscode
+
+
+# File extensions
+*.pyc
+__pycache__
+*.sqlite3
+
+
+# Debug files
+*.log
+worker.pid
+celerybeat-schedule*
+
+
+# Redis
+*.rdb

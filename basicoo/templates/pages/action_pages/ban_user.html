@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Ban user{% endblock %}
+
+{% block content %}
+	<div class="wrapper">
+		{% for item in user_values %}
+			{% if item.is_active %}
+				<h1>Set inactive {{ item.username }}?</h1>
+			{% else %}
+				<h1>Set active {{ item.username }}?</h1>
+			{% endif %}
+		{% endfor %}
+		<div id="users">
+			<table id="users-table" class="bordered gray table-margin">
+				<div class="button-wrapper">
+					<form id="form-table" method="post" class="page_form">
+						{% csrf_token %}
+						<button type="submit" class="btn btn-primary">Yes</button>
+					</form>
+					{% for item in user_values %}
+						<button class="clickable-row btn btn-primary" data-href="{% url 'core:view-user' %}?id={{ item.id }}">No</button>
+					{% endfor %}
+				</div>
+			</table>
+		</div>
+	</div>
+{% endblock %}

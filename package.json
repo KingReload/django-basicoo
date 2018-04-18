@@ -1,0 +1,48 @@
+{
+  "name": "basicoo",
+  "version": "0.1",
+  "description": "Basicoo, a start for every website!",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "autoprefixer": "^6.7.5",
+    "babel-core": "6.23.1",
+    "babel-loader": "6.3.2",
+    "babel-preset-es2015": "6.22.0",
+    "babel-tape-runner": "2.0.1",
+    "copy-webpack-plugin": "4.0.1",
+    "css-loader": "^0.26.2",
+    "eslint": "^3.16.1",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "extract-text-webpack-plugin": "^2.0.0",
+    "file-loader": "^0.10.0",
+    "imagemin-webpack-plugin": "1.4.4",
+    "node-sass": "4.5.0",
+    "path": "0.12.7",
+    "postcss-loader": "^1.3.2",
+    "raven-js": "3.11.0",
+    "sass-loader": "^6.0.2",
+    "strip-loader": "0.1.2",
+    "style-loader": "^0.13.1",
+    "tape": "4.6.3",
+    "webpack-dev-server": "2.4.1"
+  },
+  "scripts": {
+    "compile": "webpack --bail",
+    "start": "webpack --watch",
+    "test": "babel-tape-runner frontend/tests/*",
+    "lint": "eslint frontend/**/*.js"
+  },
+  "author": "King Reload",
+  "license": "UNLICENSED",
+  "private": false,
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "devDependencies": {
+    "webpack": "^2.2.1"
+  }
+}

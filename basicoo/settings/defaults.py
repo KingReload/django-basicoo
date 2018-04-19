@@ -3,7 +3,11 @@ import os
 import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__)))
+
+location = lambda x: os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), x)
 
 # Setup the database from env
 env = environ.Env()
@@ -15,13 +19,14 @@ env.read_env()
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '@hj9v)+nz&*rw49mk#zopa4saqotku+&dv#$-&kt225y7fqi#7'
 
+PROJECT_NAME = env.list('APP_NAME')[0]
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True  # True for dev version
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,15 +52,12 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = '%s.urls' % env.list('APP_NAME')[0]
 
-WEBSITE_NAME = env.list('APP_NAME')[0]
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(
-                BASE_DIR,
-                ('%s/templates' % env.list('APP_NAME')[0]))],
+             location('templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'builtins': [
@@ -79,7 +81,8 @@ WSGI_APPLICATION = '%s.wsgi.application' % env.list('APP_NAME')[0]
 
 DATABASES = {
     'default': env.db(
-        default='postgresql://localhost/%s' % env.list('APP_NAME')[0]),
+        default='postgresql://localhost/%s' % (
+            env.list('APP_NAME')[0])),
 }
 
 # Password validation
@@ -100,6 +103,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    '%s.backends.EmailBackend' % env.list('APP_NAME')[0],
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -117,16 +125,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'public/static')
+STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "%s/static" % env.list('APP_NAME')[0]),
+    os.path.join(BASE_DIR, 'public/staticfiles'),
+)
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-STATIC_URL = '/static/'
-
-MEDIA_ROOT = os.path.join(
-    BASE_DIR, '%s/static/images' % env.list('APP_NAME')[0])
-
-MEDIA_URL = '/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'public/media')
+MEDIA_URL = '/media/'
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'

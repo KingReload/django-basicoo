@@ -14,7 +14,7 @@
 
 
 # Static files
-basicoo/static/*
+basicoo/public/*
 
 
 # Editor files

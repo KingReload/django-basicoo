@@ -134,7 +134,8 @@ class ForgotPassword(TemplateView):
 				'\n' + 'Subject: %s:' % settings.EMAIL_SUBJECT_PREFIX +
 				'Reset Password \n')
 			msg = header + (
-				'\n This is password reset request from basicoo.com \n %s \n' % (
+				'\n This is password reset request from %s.com \n %s \n' % (
+					settings.PROJECT_NAME,
 					url))
 
 			server.sendmail(

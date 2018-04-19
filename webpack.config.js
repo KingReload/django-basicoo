@@ -16,8 +16,8 @@ module.exports = [
     },
     output: {
       filename: '[name].js',
-      path: path.resolve(__dirname, 'basicoo/static/js'),
-      publicPath: '/static/',
+      path: path.resolve(__dirname, 'basicoo/public/staticfiles/js'),
+      publicPath: '/public/staticfiles/',
       sourceMapFilename: 'sourcemaps/[name].map'
     },
     module: {
@@ -64,7 +64,7 @@ module.exports = [
           name: '[path][name].[ext]',
           context: 'frontend/images',
           outputPath: 'images/',
-          publicPath: '/static/'
+          publicPath: '/public/media/'
         }
       }]
     },
@@ -87,7 +87,7 @@ module.exports = [
       }),
       new CopyWebpackPlugin([
         { from: 'frontend/css/', to: '../css' },
-        { from: 'frontend/images/', to: '../images' }
+        { from: 'frontend/images/', to: '../../media/images' }
       ]),
       new ExtractTextPlugin({
         filename: '[name].css',

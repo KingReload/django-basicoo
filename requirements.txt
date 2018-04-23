@@ -8,6 +8,7 @@ constantly==15.1.0
 cryptography==2.1.4
 Django==1.11.5
 django-appconf==1.0.2
+django-colorfield==0.1.14
 django-environ==0.4.4
 django-user-accounts==2.0.3
 entrypoints==0.2.3
@@ -45,4 +46,5 @@ service-identity==17.0.0
 six==1.11.0
 txaio==2.8.2
 virtualenv==15.1.0
+whitenoise==3.3.1
 zope.interface==4.4.3

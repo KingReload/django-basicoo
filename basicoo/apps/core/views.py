@@ -12,13 +12,13 @@ from django.conf import settings
 from django.urls import reverse
 
 from django.views.generic import (
-	CreateView, TemplateView)
+	CreateView, TemplateView, UpdateView)
 
 from .models import (
-	ExtraUserField)
+	ExtraUserField, WebsiteStyle)
 from .forms import (
 	CreateStaff, PasswordForgotForm, PasswordResetForm,
-	SignUpForm, UserForm)
+	SignUpForm, StylesForm, UserForm)
 
 # Definitions to get the same outcome used for multiple classes.
 
@@ -30,19 +30,33 @@ def class_check(user, permission):
 		Permission.objects.get(codename='admin').id,
 	]
 
+	permissions = []
+
 	if permission == 'client':
 		user.is_staff = False
+		permissions = [
+			'client'
+		]
 	if permission == 'staff':
 		user.is_staff = True
+		permissions = [
+			'staff'
+		]
 	if permission == 'admin':
 		user.is_staff = True
-		user.is_superuser = True
+		permissions = [
+			'staff',
+			'admin'
+		]
 
-	for perm in permission_array:
-		user.user_permissions.remove(perm)
+	for d in permission_array:
+		user.user_permissions.remove(d)
 
-	permission = Permission.objects.get(codename=permission).id
-	user.user_permissions.add(permission)
+	if permissions is not None:
+		for a in permissions:
+			perm = Permission.objects.get(codename=a).id
+			user.user_permissions.add(perm)
+
 	user.save()
 
 	return user
@@ -163,7 +177,7 @@ class ForgotPassword(TemplateView):
 
 
 class ResetPassword(TemplateView):
-	template_name = 'pages/pw_reset.html'
+	template_name = 'pages/action_pages/pw_reset.html'
 
 	def get(self, request, *args, **kwargs):
 		if 'user_id' in self.request.GET:
@@ -215,124 +229,6 @@ class ResetPassword(TemplateView):
 
 class Home(LoginRequiredMixin, TemplateView):
 	template_name = 'home.html'
-
-
-class GetUsers(PermissionRequiredMixin, TemplateView):
-	permission_required = 'auth.staff'
-	template_name = 'pages/get_users.html'
-
-	def get_context_data(self, **kwargs):
-		context = super().get_context_data(**kwargs)
-		context['users'] = User.objects.all()
-		return context
-
-
-class ViewUser(PermissionRequiredMixin, TemplateView):
-	permission_required = 'auth.staff'
-	template_name = 'pages/view_pages/view_user.html'
-
-	def get(self, request, *args, **kwargs):
-		id = request.GET['id']
-		user = User.objects.filter(pk=id)
-		user_values = user.values()
-		extra_values = ExtraUserField.objects.filter(user=user)
-		return self.render_to_response(
-			self.get_context_data(
-				user_values=user_values,
-				extra_values=extra_values))
-
-	def post(self, request, *args, **kwargs):
-		id = request.GET['id']
-		user = User.objects.get(pk=id)
-		permission = request.POST['permission']
-
-		class_check(user, permission)
-
-		return HttpResponseRedirect(reverse('core:get-users'))
-
-
-class BanUser(PermissionRequiredMixin, TemplateView):
-	permission_required = 'is_superuser'
-	template_name = 'pages/action_pages/ban_user.html'
-
-	def get(self, request, *args, **kwargs):
-		id = request.GET['id']
-		user_values = User.objects.filter(pk=id).values()
-		return self.render_to_response(
-			self.get_context_data(user_values=user_values))
-
-	def post(self, request, *args, **kwargs):
-		id = request.GET['id']
-		user = User.objects.get(pk=id)
-
-		if user.is_active:
-			user.is_active = False
-		else:
-			user.is_active = True
-
-		user.save()
-
-		redirect_url = reverse('core:view-user')
-		extra_params = '?id=%s' % id if id else ''
-		full_redirect_url = '%s%s' % (redirect_url, extra_params)
-
-		return HttpResponseRedirect(full_redirect_url)
-
-
-class DeleteUser(PermissionRequiredMixin, TemplateView):
-	permission_required = 'is_superuser'
-	template_name = 'pages/action_pages/delete_user.html'
-
-	def get(self, request, *args, **kwargs):
-		id = request.GET['id']
-		user_values = User.objects.filter(pk=id).values()
-		return self.render_to_response(
-			self.get_context_data(user_values=user_values))
-
-	def post(self, request, *args, **kwargs):
-		id = request.GET['id']
-		user = User.objects.get(pk=id)
-		user.delete()
-
-		return HttpResponseRedirect(reverse('core:get-users'))
-
-
-class CreateStaff(PermissionRequiredMixin, CreateView):
-	form_class = CreateStaff
-	permission_required = 'is_superuser'
-	template_name = 'pages/create.html'
-
-	def get(self, request, *args, **kwargs):
-		self.object = None
-		form_class = self.get_form_class()
-		form = self.get_form(form_class)
-		return self.render_to_response(
-			self.get_context_data(form=form))
-
-	def post(self, request, *args, **kwargs):
-		self.object = None
-		form_class = self.get_form_class()
-		form = self.get_form(form_class)
-		if form.is_valid():
-			return self.form_valid(form)
-		else:
-			return self.form_invalid(form, request)
-
-	def form_valid(self, form):
-		self.object = form.save()
-
-		permission = form.cleaned_data.get('permission')
-
-		class_check(self.object, permission)
-
-		return HttpResponseRedirect(reverse('core:home'))
-
-	def form_invalid(self, form, request):
-		for key, value in form.errors.items():
-			messages.error(request, "{0}: {1}".format(key, value))
-
-		return self.render_to_response(
-			self.get_context_data(form=form))
 
 
 class ViewProfile(LoginRequiredMixin, TemplateView):
@@ -401,6 +297,197 @@ class ViewProfile(LoginRequiredMixin, TemplateView):
 			self.object.save()
 
 		return HttpResponseRedirect(reverse('core:view-profile'))
+
+	def form_invalid(self, form, request):
+		for key, value in form.errors.items():
+			messages.error(request, "{0}: {1}".format(key, value))
+
+		return self.render_to_response(
+			self.get_context_data(form=form))
+
+
+class GetUsers(PermissionRequiredMixin, TemplateView):
+	permission_required = 'auth.staff'
+	template_name = 'pages/get_users.html'
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['users'] = User.objects.all()
+		return context
+
+
+class ViewUser(PermissionRequiredMixin, TemplateView):
+	permission_required = 'auth.staff'
+	template_name = 'pages/view_pages/view_user.html'
+
+	def get(self, request, *args, **kwargs):
+		id = request.GET['id']
+		user = User.objects.filter(pk=id)
+		user_values = user.values()
+		extra_values = ExtraUserField.objects.filter(user=user)
+		return self.render_to_response(
+			self.get_context_data(
+				user_values=user_values,
+				extra_values=extra_values))
+
+	def post(self, request, *args, **kwargs):
+		id = request.GET['id']
+		user = User.objects.get(pk=id)
+		permission = request.POST['permission']
+
+		class_check(user, permission)
+
+		return HttpResponseRedirect(reverse('core:get-users'))
+
+
+class BanUser(PermissionRequiredMixin, TemplateView):
+	permission_required = 'auth.admin'
+	template_name = 'pages/action_pages/ban_user.html'
+
+	def get(self, request, *args, **kwargs):
+		id = request.GET['id']
+		user_values = User.objects.filter(pk=id).values()
+		return self.render_to_response(
+			self.get_context_data(user_values=user_values))
+
+	def post(self, request, *args, **kwargs):
+		id = request.GET['id']
+		user = User.objects.get(pk=id)
+
+		if user.is_active:
+			user.is_active = False
+		else:
+			user.is_active = True
+
+		user.save()
+
+		redirect_url = reverse('core:view-user')
+		extra_params = '?id=%s' % id if id else ''
+		full_redirect_url = '%s%s' % (redirect_url, extra_params)
+
+		return HttpResponseRedirect(full_redirect_url)
+
+
+class DeleteUser(PermissionRequiredMixin, TemplateView):
+	permission_required = 'auth.admin'
+	template_name = 'pages/action_pages/delete_user.html'
+
+	def get(self, request, *args, **kwargs):
+		id = request.GET['id']
+		user_values = User.objects.filter(pk=id).values()
+		return self.render_to_response(
+			self.get_context_data(user_values=user_values))
+
+	def post(self, request, *args, **kwargs):
+		id = request.GET['id']
+		user = User.objects.get(pk=id)
+		user.delete()
+
+		return HttpResponseRedirect(reverse('core:get-users'))
+
+
+class CreateStaff(PermissionRequiredMixin, CreateView):
+	form_class = CreateStaff
+	permission_required = 'auth.admin'
+	template_name = 'pages/create.html'
+
+	def get(self, request, *args, **kwargs):
+		self.object = None
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+		return self.render_to_response(
+			self.get_context_data(form=form))
+
+	def post(self, request, *args, **kwargs):
+		self.object = None
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+		if form.is_valid():
+			return self.form_valid(form)
+		else:
+			return self.form_invalid(form, request)
+
+	def form_valid(self, form):
+		self.object = form.save()
+
+		permission = form.cleaned_data.get('permission')
+
+		class_check(self.object, permission)
+
+		return HttpResponseRedirect(reverse('core:home'))
+
+	def form_invalid(self, form, request):
+		for key, value in form.errors.items():
+			messages.error(request, "{0}: {1}".format(key, value))
+
+		return self.render_to_response(
+			self.get_context_data(form=form))
+
+
+class CreateStyles(PermissionRequiredMixin, CreateView):
+	form_class = StylesForm
+	permission_required = 'is_superuser'
+	template_name = 'pages/create.html'
+
+	def get(self, request, *args, **kwargs):
+		self.object = None
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+		return self.render_to_response(
+			self.get_context_data(form=form))
+
+	def post(self, request, *args, **kwargs):
+		self.object = None
+		form_class = self.get_form_class()
+		form = self.get_form(form_class)
+		if form.is_valid():
+			return self.form_valid(form)
+		else:
+			return self.form_invalid(form, request)
+
+	def form_valid(self, form):
+		self.object = form.save()
+
+		return HttpResponseRedirect(reverse('core:home'))
+
+	def form_invalid(self, form, request):
+		for key, value in form.errors.items():
+			messages.error(request, "{0}: {1}".format(key, value))
+
+		return self.render_to_response(
+			self.get_context_data(form=form))
+
+
+class UpdateStyles(PermissionRequiredMixin, UpdateView):
+	model = WebsiteStyle
+	form_class = StylesForm
+	permission_required = 'is_superuser'
+	template_name = 'pages/create.html'
+
+	def get(self, request, *args, **kwargs):
+		self.object = self.get_object()
+		id = self.object.id
+		print(id)
+		form = StylesForm(
+			instance=WebsiteStyle.objects.get(pk=id))
+		return self.render_to_response(
+			self.get_context_data(form=form))
+
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object()
+		self.styles = WebsiteStyle.objects.get(id=self.object.id)
+
+		form = StylesForm(self.request.POST, instance=self.styles)
+		if form.is_valid():
+			return self.form_valid(form)
+		else:
+			return self.form_invalid(form, request)
+
+	def form_valid(self, form):
+		self.object = form.save()
+
+		return HttpResponseRedirect(
+			reverse('core:update-styles', args=[self.object.id]))
 
 	def form_invalid(self, form, request):
 		for key, value in form.errors.items():

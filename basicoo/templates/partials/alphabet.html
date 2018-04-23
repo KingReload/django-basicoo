@@ -1,7 +1,7 @@
 {% block content %}
 	<div class="alphabet">
 		{% for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
-			<a href="#"{% if forloop.first %} class="first"{% elif forloop.last %} class="last"{% endif %}>{{ letter }}</a>
+			<a href="#"{% if forloop.first %} class="first body-text-color"{% elif forloop.last %} class="last body-text-color"{% endif %}>{{ letter }}</a>
 		{% endfor %}
 	</div>
 {% endblock %}

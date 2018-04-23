@@ -2,6 +2,10 @@ $(document).ready(function($) {
     $(".clickable-row").click(function() {
         window.location = $(this).data("href");
     });
+
+    $(".jscolor").each(function() {
+        $(this).addClass("form-control")
+    });
 });
 
 $(function () {

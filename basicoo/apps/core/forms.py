@@ -6,6 +6,8 @@ from django.forms import (
 
 from basicoo import validators
 
+from .models import WebsiteStyle
+
 # Create and import models
 
 
@@ -202,3 +204,25 @@ class PasswordResetForm(forms.Form):
 				self.add_error("password_validate", msg)
 
 		return cleaned_data
+
+
+class StylesForm(forms.ModelForm):
+	class Meta:
+		model = WebsiteStyle
+		fields = '__all__'
+
+	def __init__(self, *args, **kwargs):
+		super(StylesForm, self).__init__(*args, **kwargs)
+		for field_name, field in self.fields.items():
+			if field.widget.__class__.__name__ != CheckboxInput().__class__.__name__:
+				field.widget.attrs['class'] = 'form-control'
+
+			if field_name.endswith('gradient'):
+				field.help_text = (
+					'This is a gradient, make sure to use following format:' +
+					' number, color (, color, you can keep adding colors as' +
+					' you please).')
+			else:
+				field.help_text = (
+					'Please define a color, you can use' +
+					' the color hex, but also the color name.')

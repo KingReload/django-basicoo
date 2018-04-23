@@ -21,6 +21,7 @@ The current project could still use an upgrade to `Django 2.x`, but at the momen
     - `source .env/bin/activate`
     - `make install`
     - `make frontend`
+    - `./manage.py collectstatic`
     - `createdb -h localhost -O postgres basicoo` however you can change your database name from `basicoo` to your own, but you'll need to read the `Note` below.
     - `./manage.py migrate`
     - `make exampledata`

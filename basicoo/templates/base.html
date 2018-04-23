@@ -1,3 +1,5 @@
+{% load userdata_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -13,16 +15,50 @@
 			<link rel="stylesheet" href="{% static 'css/tablegrid.css' %}">
 			<link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}">
 			
+			<script src="{% static 'colorfield/jscolor/jscolor.js' %}"></script>
+			<script src="{% static 'colorfield/jscolor/jscolor.min.js' %}"></script>
+			<script src="{% static 'js/main.js' %}"></script>
 			<script src="{% static 'js/main.js' %}"></script>
 		{% else %}
 			<link rel="stylesheet" href="{% static 'css/mystyles.css' %}">
 			<link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}">
 		{% endif %}
+		
+		<style>
+			.navbar-gradient {
+				background: no-repeat fixed linear-gradient({% get_style 'navbar_gradient' %}) !important;
+			}
+
+			.navbar-text-color {
+				color: {% get_style 'navbar_text_color' %} !important;
+			}
+
+			.body-gradient {
+				background: no-repeat fixed linear-gradient({% get_style 'body_gradient' %}) !important;
+			}
+
+			.body-text-color {
+				color: {% get_style 'body_text_color' %} !important;
+			}
+
+			.footer-color {
+				background: {% get_style 'footer_color' %} !important;
+			}
+
+			.footer-text-color {
+				color: {% get_style 'footer_text_color' %} !important;
+			}
+
+			.button-text-color {
+				background: {% get_style 'button_color' %} !important;
+				color: {% get_style 'button_text_color' %} !important;
+			}
+		</style>
 	</head>
-	<body>
+	<body class="body-gradient">
 		<header>
 			{% if user.is_authenticated %}
-				<nav class="navbar navbar-default">
+				<nav class="navbar navbar-default navbar-gradient">
 					<div class="container-fluid">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -35,25 +71,30 @@
 						</div>
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav navbar-right">
+								{% if user.is_superuser %}
+									<li class="nav-item">
+										<a class="nav-link navbar-text-color" href="{% check_styles %}">Styles</a>
+									</li>
+								{% endif %}
 								<li class="dropdown">
 									{% if user.is_staff %}
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User
+										<a href="#" class="dropdown-toggle navbar-text-color" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User
 										<span class="caret"></span></a>
 										<ul class="dropdown-menu">
-											{% if user.is_superuser %}
-												<li><a role="menuitem" tabindex="-1" href="{% url 'core:create-staff' %}">Add</a></li>
+											{% if perms.auth.admin or user.is_superuser %}
+												<li><a class="navbar-text-color" role="menuitem" tabindex="-1" href="{% url 'core:create-staff' %}">Add</a></li>
 											{% endif %}
-											<li><a role="menuitem" tabindex="-1" href="{% url 'core:get-users' %}">List</a></li>
+											<li><a class="navbar-text-color" role="menuitem" tabindex="-1" href="{% url 'core:get-users' %}">List</a></li>
 										</ul>
 									{% endif %}
 								</li>
 								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }}
+									<a href="#" class="dropdown-toggle navbar-text-color" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }}
 									<span class="caret"></span></a>
 									<ul class="dropdown-menu">
-										<li><a role="menuitem" tabindex="-1" href="{% url 'core:view-profile' %}">Profile</a></li>
+										<li><a class="navbar-text-color" role="menuitem" tabindex="-1" href="{% url 'core:view-profile' %}">Profile</a></li>
 										<li class="divider"></li>
-										<li><a role="menuitem" tabindex="-1" href="{% url 'logout' %}">Logout</a></li>    
+										<li><a class="navbar-text-color" role="menuitem" tabindex="-1" href="{% url 'logout' %}">Logout</a></li>    
 									</ul>
 								</li>
 							</ul>
@@ -73,20 +114,20 @@
 
 				<!--Footer Links-->
 				<div class="container-fluid text-center text-md-left"> 
-					<div class="row">
+					<div class="row footer-color">
 
 						<!--First column-->
-							<h5 class="text-uppercase">Footer Content</h5>
-							<p>Footer content informatie</p>
+							<h5 class="text-uppercase footer-text-color">Footer Content</h5>
+							<p class="footer-text-color">Footer content informatie</p>
 						<!--/.First column-->
 
 						<!--Second column-->
-							<h5 class="text-uppercase">Info</h5>
+							<h5 class="text-uppercase footer-text-color">Info</h5>
 							<ul class="list-unstyled">
-								<p>...</p>
-								<p>...</p>
-								<p>...</p>
-								<p>...</p>
+								<p class="footer-text-color">...</p>
+								<p class="footer-text-color">...</p>
+								<p class="footer-text-color">...</p>
+								<p class="footer-text-color">...</p>
 						</div>
 						<!--/.Second column-->
 					</div>
@@ -94,7 +135,7 @@
 				<!--/.Footer Links-->
 
 				<!--Copyright-->
-				<div class="footer-copyright py-3 text-center">
+				<div class="footer-copyright py-3 text-center footer-text-color footer-color">
 					© 2018 Copyright: Basicoo 2018
 					<a href="https://mdbootstrap.com/material-design-for-bootstrap/"></a>
 				</div>

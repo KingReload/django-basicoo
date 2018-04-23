@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from django import template
 
+from basicoo.apps.core.models import (
+	WebsiteStyle)
+
 register = template.Library()
 
 
@@ -44,3 +47,25 @@ def htmlattributes(value, arg):
 
 
 register.filter('htmlattributes', htmlattributes)
+
+
+@register.simple_tag
+def check_styles():
+	styles = WebsiteStyle.objects.all().first()
+
+	if styles is not None:
+		return "/update-styles/%s/" % (
+			styles.id)
+	else:
+		return "/website-styles/"
+
+
+@register.simple_tag
+def get_style(value_type):
+	styles = WebsiteStyle.objects.all().first()
+	style = getattr(styles, value_type)
+
+	if styles and style:
+		return style
+	else:
+		return None

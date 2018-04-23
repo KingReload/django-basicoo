@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from .views import (
-    BanUser, CreateStaff, DeleteUser,
-    GetUsers, Home, ForgotPassword, ResetPassword,
+    BanUser, CreateStaff, CreateStyles, DeleteUser,
+    GetUsers, Home, ForgotPassword, UpdateStyles, ResetPassword,
     Signup, ViewProfile, ViewUser)
 
 urlpatterns = [
@@ -15,4 +15,11 @@ urlpatterns = [
     url(r'^profile/$', ViewProfile.as_view(), name='view-profile'),
     url(r'^pw-forgot/$', ForgotPassword.as_view(), name='forgot-password'),
     url(r'^pw-reset/$', ResetPassword.as_view(), name='reset-password'),
+    url(r'^website-styles/$', CreateStyles.as_view(), name='website-styles'),
+
+    url(
+        r'^update-styles/(?P<pk>[0-9]+)/$',
+        UpdateStyles.as_view(),
+        name='update-styles'
+    ),
 ]

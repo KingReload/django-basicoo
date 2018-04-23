@@ -4,29 +4,29 @@
 
 {% block content %}
 	<div class="wrapper">
-		<h1>User</h1>
-		<a class="table-grid btn btn-primary" tabindex="-1" href="{% url 'core:get-users' %}">Back</a>
+		<h1 class="body-text-color">User</h1>
+		<a class="table-grid btn btn-primary button-text-color" tabindex="-1" href="{% url 'core:get-users' %}">Back</a>
 		<div id="users" class="table-grid">
 			<table id="users-table" class="bordered gray">
 				{% for item in user_values %}
 					<thead>
 						<tr>
-							<th class="col22 blue">{{ item.username }}</th>
+							<th class="col22 blue body-text-color">{{ item.username }}</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% if item.first_name %}
 							<tr>
-								<td><b>First Name:</b> {{ item.first_name }}</td>
+								<td class="body-text-color"><b>First Name:</b> {{ item.first_name }}</td>
 							</tr>
 						{% endif %}
 						{% if item.last_name %}
 							<tr>
-								<td><b>Last Name:</b> {{ item.last_name }}</td>
+								<td class="body-text-color"><b>Last Name:</b> {{ item.last_name }}</td>
 							</tr>
 						{% endif %}
 						<tr>
-							<td><b>Email:</b> {{ item.email }}</td>
+							<td class="body-text-color"><b>Email:</b> {{ item.email }}</td>
 						</tr>
 					</tbody>
 				{% endfor %}
@@ -35,24 +35,24 @@
 					<tbody>
 						{% if item.country %}
 							<tr>
-								<td><b>Country:</b> {{ item.country }}</td>
+								<td class="body-text-color"><b>Country:</b> {{ item.country }}</td>
 							</tr>
 						{% endif %}
 						{% if item.city %}
 							<tr>
-								<td><b>City:</b> {{ item.city }}</td>
+								<td class="body-text-color"><b>City:</b> {{ item.city }}</td>
 							</tr>
 						{% endif %}
 						{% for staff in user_values %}
-							{% if not staff.is_staff and request.user.is_staff or request.user.is_superuser %}
+							{% if not staff.is_staff and request.user.is_staff or perms.auth.admin or request.user.is_superuser %}
 								{% if item.address %}
 									<tr>
-										<td><b>Address:</b> {{ item.address }}</td>
+										<td class="body-text-color"><b>Address:</b> {{ item.address }}</td>
 									</tr>
 								{% endif %}
 								{% if item.postalcode %}
 									<tr>
-										<td><b>Postalcode:</b> {{ item.postalcode }}</td>
+										<td class="body-text-color"><b>Postalcode:</b> {{ item.postalcode }}</td>
 									</tr>
 								{% endif %}
 							{% endif %}
@@ -60,7 +60,7 @@
 					</tbody>
 				{% endfor %}
 			</table>
-			{% if request.user.is_superuser %}
+			{% if perms.auth.admin or request.user.is_superuser %}
 				<table id="users-table" class="bordered gray table-margin">
 					{% for item in user_values %}
 						<form id="form-table" method="post" class="page_form">
@@ -71,17 +71,17 @@
 								<option value="admin">Admin</option>
 							</select>
 							
-							<button class="table-grid btn btn-primary align-view" type="submit">Update</button>
+							<button class="table-grid btn btn-primary align-view button-text-color" type="submit">Update</button>
 						</form>
 						
-						<button class="clickable-row table-grid btn btn-primary align-view" data-href="{% url 'core:ban-user' %}?id={{ item.id }}">
+						<button class="clickable-row table-grid btn btn-primary align-view button-text-color" data-href="{% url 'core:ban-user' %}?id={{ item.id }}">
 							{% if item.is_active %}
 								Set inactive
 							{% else %}
 								Set active
 							{% endif %}
 						</button>
-						<button class="clickable-row table-grid btn btn-primary align-view" data-href="{% url 'core:delete-user' %}?id={{ item.id }}">Delete</button>
+						<button class="clickable-row table-grid btn btn-primary align-view button-text-color" data-href="{% url 'core:delete-user' %}?id={{ item.id }}">Delete</button>
 					{% endfor %}
 				</table>
 			{% endif %}

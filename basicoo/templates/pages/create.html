@@ -3,11 +3,11 @@
 {% block title %}Create{% endblock %}
 
 {% block content %}
-	<h2>Create</h2>
+	<h2 class="body-text-color">Create</h2>
 	<form method="post" class="page_form">
 		{% csrf_token %}
 		{% for field in form %}
-			<p>
+			<p class="body-text-color">
 				{{ field.label_tag }}<br>
 				{{ field }}
 				{% if field.help_text %}
@@ -18,6 +18,6 @@
 				{% endfor %}
 			</p>
 		{% endfor %}
-		<button type="submit" class="btn btn-primary">Submit</button>
+		<button type="submit" class="btn btn-primary button-text-color">Submit</button>
 	</form>
 {% endblock %}

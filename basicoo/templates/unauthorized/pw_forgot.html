@@ -10,7 +10,7 @@
 
         {% csrf_token %}
         {% for field in form %}
-            <p>
+            <p class="body-text-color">
                 {{ field.label_tag }}<br/>
                 {{ field }}<br/>
 
@@ -24,7 +24,7 @@
             </p>
         {% endfor %}
         
-        <input class="btn btn-primary" type="submit">
+        <input class="btn btn-primary button-text-color" type="submit">
         <a href="{% url 'login' %}">Back to login</a>
     </form>
 {% endblock content %}

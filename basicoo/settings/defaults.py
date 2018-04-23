@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'colorfield',
+
     '%s.apps.core' % env.list('APP_NAME')[0],
     '%s.apps' % env.list('APP_NAME')[0],
     '%s' % env.list('APP_NAME')[0],
@@ -56,7 +58,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-             location('templates'),
+            location('templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {

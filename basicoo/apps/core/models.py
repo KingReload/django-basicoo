@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
+from colorfield.fields import ColorField
+
 # Create your models here.
 
 
@@ -32,3 +34,38 @@ class ExtraUserField(models.Model):
 
     def __str__(self):
         return str(self.user.username).title()
+
+
+class WebsiteStyle(models.Model):
+    navbar_gradient = models.CharField(
+        max_length=254,
+        blank=True,
+        null=True)
+    navbar_text_color = ColorField(
+        max_length=254,
+        blank=True,
+        null=True)
+    body_gradient = models.CharField(
+        max_length=254,
+        blank=True,
+        null=True)
+    body_text_color = ColorField(
+        max_length=254,
+        blank=True,
+        null=True)
+    footer_color = ColorField(
+        max_length=254,
+        blank=True,
+        null=True)
+    footer_text_color = ColorField(
+        max_length=254,
+        blank=True,
+        null=True)
+    button_color = ColorField(
+        max_length=254,
+        blank=True,
+        null=True)
+    button_text_color = ColorField(
+        max_length=254,
+        blank=True,
+        null=True)

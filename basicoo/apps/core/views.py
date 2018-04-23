@@ -177,7 +177,7 @@ class ForgotPassword(TemplateView):
 
 
 class ResetPassword(TemplateView):
-	template_name = 'pages/action_pages/pw_reset.html'
+	template_name = 'core_pages/action_pages/pw_reset.html'
 
 	def get(self, request, *args, **kwargs):
 		if 'user_id' in self.request.GET:
@@ -228,12 +228,12 @@ class ResetPassword(TemplateView):
 
 
 class Home(LoginRequiredMixin, TemplateView):
-	template_name = 'home.html'
+	template_name = 'core_pages/home.html'
 
 
 class ViewProfile(LoginRequiredMixin, TemplateView):
 	form_class = UserForm
-	template_name = 'pages/view_pages/view_profile.html'
+	template_name = 'core_pages/view_pages/view_profile.html'
 
 	def get(self, request, *args, **kwargs):
 		user = self.request.user
@@ -308,7 +308,7 @@ class ViewProfile(LoginRequiredMixin, TemplateView):
 
 class GetUsers(PermissionRequiredMixin, TemplateView):
 	permission_required = 'auth.staff'
-	template_name = 'pages/get_users.html'
+	template_name = 'core_pages/get_users.html'
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
@@ -318,7 +318,7 @@ class GetUsers(PermissionRequiredMixin, TemplateView):
 
 class ViewUser(PermissionRequiredMixin, TemplateView):
 	permission_required = 'auth.staff'
-	template_name = 'pages/view_pages/view_user.html'
+	template_name = 'core_pages/view_pages/view_user.html'
 
 	def get(self, request, *args, **kwargs):
 		id = request.GET['id']
@@ -342,7 +342,7 @@ class ViewUser(PermissionRequiredMixin, TemplateView):
 
 class BanUser(PermissionRequiredMixin, TemplateView):
 	permission_required = 'auth.admin'
-	template_name = 'pages/action_pages/ban_user.html'
+	template_name = 'core_pages/action_pages/ban_user.html'
 
 	def get(self, request, *args, **kwargs):
 		id = request.GET['id']
@@ -370,7 +370,7 @@ class BanUser(PermissionRequiredMixin, TemplateView):
 
 class DeleteUser(PermissionRequiredMixin, TemplateView):
 	permission_required = 'auth.admin'
-	template_name = 'pages/action_pages/delete_user.html'
+	template_name = 'core_pages/action_pages/delete_user.html'
 
 	def get(self, request, *args, **kwargs):
 		id = request.GET['id']
@@ -389,7 +389,7 @@ class DeleteUser(PermissionRequiredMixin, TemplateView):
 class CreateStaff(PermissionRequiredMixin, CreateView):
 	form_class = CreateStaff
 	permission_required = 'auth.admin'
-	template_name = 'pages/create.html'
+	template_name = 'core_pages/create.html'
 
 	def get(self, request, *args, **kwargs):
 		self.object = None
@@ -427,7 +427,7 @@ class CreateStaff(PermissionRequiredMixin, CreateView):
 class CreateStyles(PermissionRequiredMixin, CreateView):
 	form_class = StylesForm
 	permission_required = 'is_superuser'
-	template_name = 'pages/create.html'
+	template_name = 'core_pages/create.html'
 
 	def get(self, request, *args, **kwargs):
 		styles = WebsiteStyle.objects.all().first()
@@ -467,7 +467,7 @@ class UpdateStyles(PermissionRequiredMixin, UpdateView):
 	model = WebsiteStyle
 	form_class = StylesForm
 	permission_required = 'is_superuser'
-	template_name = 'pages/create.html'
+	template_name = 'core_pages/create.html'
 
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object()

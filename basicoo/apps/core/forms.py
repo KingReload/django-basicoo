@@ -220,7 +220,9 @@ class StylesForm(forms.ModelForm):
 			if field_name.endswith('gradient'):
 				field.help_text = (
 					'This is a gradient, make sure to use following format:' +
-					' number, color (, color, you can keep adding colors as' +
+					' number example (90deg) make sure to include the "deg"' +
+					' behind the number,' +
+					' color (, color, you can keep adding colors as' +
 					' you please).')
 			else:
 				field.help_text = (

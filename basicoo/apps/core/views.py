@@ -430,11 +430,16 @@ class CreateStyles(PermissionRequiredMixin, CreateView):
 	template_name = 'pages/create.html'
 
 	def get(self, request, *args, **kwargs):
-		self.object = None
-		form_class = self.get_form_class()
-		form = self.get_form(form_class)
-		return self.render_to_response(
-			self.get_context_data(form=form))
+		styles = WebsiteStyle.objects.all().first()
+
+		if styles is not None:
+			return HttpResponseRedirect(reverse('core:home'))
+		else:
+			self.object = None
+			form_class = self.get_form_class()
+			form = self.get_form(form_class)
+			return self.render_to_response(
+				self.get_context_data(form=form))
 
 	def post(self, request, *args, **kwargs):
 		self.object = None

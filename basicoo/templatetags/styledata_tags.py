@@ -38,9 +38,11 @@ def check_styles():
 @register.simple_tag
 def get_style(value_type):
 	styles = WebsiteStyle.objects.all().first()
-	style = getattr(styles, value_type)
+
+	if styles:
+		style = getattr(styles, value_type)
 
 	if styles and style:
 		return style
 	else:
-		return None
+		return False

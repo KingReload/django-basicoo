@@ -471,10 +471,8 @@ class UpdateStyles(PermissionRequiredMixin, UpdateView):
 
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object()
-		id = self.object.id
-		print(id)
 		form = StylesForm(
-			instance=WebsiteStyle.objects.get(pk=id))
+			instance=WebsiteStyle.objects.get(pk=self.object.id))
 		return self.render_to_response(
 			self.get_context_data(form=form))
 

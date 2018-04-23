@@ -1,60 +1,7 @@
-{% load userdata_tags %}
+{% extends 'layout.html' %}
+{% load styledata_tags %}
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>{% block title %}Basicoo{% endblock %}</title>
-		
-		{% if user.is_authenticated %}
-			{% load static  %}
-			{% get_media_prefix as MEDIA_PREFIX %}
-			<script src="{% static 'js/bootstrap/bootstrap.js' %}"></script>
-			
-			<link rel="stylesheet" href="{% static 'css/mystyles.css' %}">
-			<link rel="stylesheet" href="{% static 'css/tablegrid.css' %}">
-			<link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}">
-			
-			<script src="{% static 'colorfield/jscolor/jscolor.js' %}"></script>
-			<script src="{% static 'colorfield/jscolor/jscolor.min.js' %}"></script>
-			<script src="{% static 'js/main.js' %}"></script>
-			<script src="{% static 'js/main.js' %}"></script>
-		{% else %}
-			<link rel="stylesheet" href="{% static 'css/mystyles.css' %}">
-			<link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}">
-		{% endif %}
-		
-		<style>
-			.navbar-gradient {
-				background: no-repeat fixed linear-gradient({% get_style 'navbar_gradient' %}) !important;
-			}
-
-			.navbar-text-color {
-				color: {% get_style 'navbar_text_color' %} !important;
-			}
-
-			.body-gradient {
-				background: no-repeat fixed linear-gradient({% get_style 'body_gradient' %}) !important;
-			}
-
-			.body-text-color {
-				color: {% get_style 'body_text_color' %} !important;
-			}
-
-			.footer-color {
-				background: {% get_style 'footer_color' %} !important;
-			}
-
-			.footer-text-color {
-				color: {% get_style 'footer_text_color' %} !important;
-			}
-
-			.button-text-color {
-				background: {% get_style 'button_color' %} !important;
-				color: {% get_style 'button_text_color' %} !important;
-			}
-		</style>
-	</head>
+{% block wrapper %}
 	<body class="body-gradient">
 		<header>
 			{% if user.is_authenticated %}
@@ -144,4 +91,4 @@
 			</footer>
 		<!--/.Footer-->
 	</body>
-</html>
+{% endblock %}

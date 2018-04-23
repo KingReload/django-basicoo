@@ -20,6 +20,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='websitestyle',
             name='button_color',
-            field=colorfield.fields.ColorField(blank=True, max_length=18, null=True),
+            field=colorfield.fields.ColorField(
+                blank=True,
+                max_length=18,
+                null=True),
         ),
     ]

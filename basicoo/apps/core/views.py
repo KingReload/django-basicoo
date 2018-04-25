@@ -430,9 +430,9 @@ class CreateStyles(PermissionRequiredMixin, CreateView):
 	template_name = 'core_pages/create.html'
 
 	def get(self, request, *args, **kwargs):
-		styles = WebsiteStyle.objects.all().first()
-
-		if styles is not None:
+		style_templates = WebsiteStyle.objects.filter(template_name=None).first()
+		
+		if style_templates is not None:
 			return HttpResponseRedirect(reverse('core:home'))
 		else:
 			self.object = None
@@ -489,8 +489,12 @@ class UpdateStyles(PermissionRequiredMixin, UpdateView):
 	def form_valid(self, form):
 		self.object = form.save()
 
-		return HttpResponseRedirect(
-			reverse('core:update-styles', args=[self.object.id]))
+		if self.object.template_name is not None:
+			return HttpResponseRedirect(
+				reverse('core:website-styles'))
+		else:
+			return HttpResponseRedirect(
+				reverse('core:update-styles', args=[self.object.id]))
 
 	def form_invalid(self, form, request):
 		for key, value in form.errors.items():

@@ -216,6 +216,8 @@ class StylesForm(forms.ModelForm):
 		for field_name, field in self.fields.items():
 			if field.widget.__class__.__name__ != CheckboxInput().__class__.__name__:
 				field.widget.attrs['class'] = 'form-control'
+			else:
+				field.widget.attrs['class'] = 'checkbox-control'
 
 			if field_name.endswith('gradient'):
 				field.help_text = (
@@ -224,7 +226,14 @@ class StylesForm(forms.ModelForm):
 					' behind the number,' +
 					' color (, color, you can keep adding colors as' +
 					' you please).')
-			else:
+			elif field_name.endswith('color'):
 				field.help_text = (
 					'Please define a color, you can use' +
 					' the color hex, but also the color name.')
+			elif field_name is 'save_template':
+				field.help_text = (
+					'Do you want to save the template?' +
+					' Yes / No')
+			else:
+				field.help_text = (
+					'Set a templatename for the template.')

@@ -7,7 +7,7 @@
 	<form method="post" class="page_form">
 		{% csrf_token %}
 		{% for field in form %}
-			<p class="body-text-color">
+			<p class="body-text-color {{ field.name }}">
 				{{ field.label_tag }}<br>
 				{{ field }}
 				{% if field.help_text %}

@@ -85,3 +85,19 @@ class WebsiteStyle(models.Model):
         max_length=254,
         blank=True,
         null=True)
+
+    save_template = models.BooleanField(
+        default=False)
+    template_name = models.CharField(
+        unique=True,
+        max_length=255,
+        blank=True,
+        null=True)
+
+    def __str__(self):
+        name = self.template_name
+        
+        if name is not None:
+            return str(name).title()
+        else:
+            return str(self.id).title()

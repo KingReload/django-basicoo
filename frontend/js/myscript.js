@@ -6,6 +6,28 @@ $(document).ready(function($) {
     $(".jscolor").each(function() {
         $(this).addClass("form-control")
     });
+
+    var save = document.getElementById("id_save_template").checked;
+
+    if (save) {
+        $("#id_template_name").prop('required', true);
+        $(".template_name").show();
+    } else {
+        $("#id_template_name").prop('required', false);
+        $(".template_name").hide();
+    }
+    
+    $("#id_save_template").click(function () {
+        var save = document.getElementById("id_save_template").checked;
+
+        if (save) {
+            $("#id_template_name").prop('required', true);
+            $(".template_name").show();
+        } else {
+            $("#id_template_name").prop('required', false);
+            $(".template_name").hide();
+        }
+    });
 });
 
 $(function () {

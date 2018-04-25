@@ -26,7 +26,7 @@ register.filter('htmlattributes', htmlattributes)
 
 @register.simple_tag
 def check_styles():
-	styles = WebsiteStyle.objects.all().first()
+	styles = WebsiteStyle.objects.filter(template_name=None).first()
 
 	if styles is not None:
 		return "/update-styles/%s/" % (
@@ -37,12 +37,14 @@ def check_styles():
 
 @register.simple_tag
 def get_style(value_type):
-	styles = WebsiteStyle.objects.all().first()
+	style_templates = WebsiteStyle.objects.all()
+	style = None
 
-	if styles:
-		style = getattr(styles, value_type)
+	for styles in style_templates:
+		if styles and not styles.template_name:
+			style = getattr(styles, value_type)
 
-	if styles and style:
+	if style_templates and style is not None:
 		return style
 	else:
 		return False

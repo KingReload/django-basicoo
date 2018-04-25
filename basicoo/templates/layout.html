@@ -34,7 +34,8 @@
 			}
 
 			.navbar-text-color:hover {
-				background: {% get_style 'navbar_text_hover' %} !important;
+				color: {% get_style 'navbar_text_hover_color' %} !important;
+				background: {% get_style 'navbar_hover_color' %} !important;
 			}
 
 			.body-gradient {
@@ -59,6 +60,7 @@
 			}
 
 			.button-text-color:hover {
+				color: {% get_style 'button_text_hover_color' %} !important;
 				background: {% get_style 'button_hover_color' %} !important;
 			}
 		</style>

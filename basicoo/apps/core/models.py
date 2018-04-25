@@ -45,7 +45,11 @@ class WebsiteStyle(models.Model):
         max_length=254,
         blank=True,
         null=True)
-    navbar_text_hover = ColorField(
+    navbar_hover_color = ColorField(
+        max_length=254,
+        blank=True,
+        null=True)
+    navbar_text_hover_color = ColorField(
         max_length=254,
         blank=True,
         null=True)
@@ -74,6 +78,10 @@ class WebsiteStyle(models.Model):
         blank=True,
         null=True)
     button_hover_color = ColorField(
+        max_length=254,
+        blank=True,
+        null=True)
+    button_text_hover_color = ColorField(
         max_length=254,
         blank=True,
         null=True)

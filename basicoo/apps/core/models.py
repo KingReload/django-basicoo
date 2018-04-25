@@ -45,6 +45,10 @@ class WebsiteStyle(models.Model):
         max_length=254,
         blank=True,
         null=True)
+    navbar_text_hover = ColorField(
+        max_length=254,
+        blank=True,
+        null=True)
     body_gradient = models.CharField(
         max_length=254,
         blank=True,
@@ -66,6 +70,10 @@ class WebsiteStyle(models.Model):
         blank=True,
         null=True)
     button_text_color = ColorField(
+        max_length=254,
+        blank=True,
+        null=True)
+    button_hover_color = ColorField(
         max_length=254,
         blank=True,
         null=True)

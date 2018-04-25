@@ -27,7 +27,7 @@
 									{% if user.is_staff %}
 										<a href="#" class="dropdown-toggle navbar-text-color" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User
 										<span class="caret"></span></a>
-										<ul class="dropdown-menu">
+										<ul class="dropdown-menu navbar-gradient">
 											{% if perms.auth.admin or user.is_superuser %}
 												<li><a class="navbar-text-color" role="menuitem" tabindex="-1" href="{% url 'core:create-staff' %}">Add</a></li>
 											{% endif %}
@@ -38,7 +38,7 @@
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle navbar-text-color" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }}
 									<span class="caret"></span></a>
-									<ul class="dropdown-menu">
+									<ul class="dropdown-menu navbar-gradient">
 										<li><a class="navbar-text-color" role="menuitem" tabindex="-1" href="{% url 'core:view-profile' %}">Profile</a></li>
 										<li class="divider"></li>
 										<li><a class="navbar-text-color" role="menuitem" tabindex="-1" href="{% url 'logout' %}">Logout</a></li>    

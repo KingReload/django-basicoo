@@ -61,8 +61,12 @@ hr {
 	width: 70% !important;
 }
 
-tr .body-text-color {
+#users-table tbody tr {
 	background-color: white;
+}
+
+#users-table tbody tr:hover {
+	background-color: #fbf8e9 !important;
 }
 
 @media only screen and (min-width: 530px) {

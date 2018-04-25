@@ -14,8 +14,8 @@
 				<table id="users-table" class="bordered gray">
 					<thead>
 						<tr>
-							<th class="col22 blue body-text-color">Username</th>
-							<th class="col22 blue body-text-color">Permission</th>
+							<th class="col22 blue">Username</th>
+							<th class="col22 blue">Permission</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -24,25 +24,25 @@
 								{% if user.is_superuser %}
 								{% elif user|check_permission:'admin' %}
 									{% if request.user.is_superuser %}
-										<td class="clickable-row body-text-color {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">{{ user.username }}</td>
+										<td class="clickable-row {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">{{ user.username }}</td>
 									{% else %}
-										<td class="body-text-color">{{ user.username }}</td>
+										<td>{{ user.username }}</td>
 									{% endif %}
 								{% elif user.is_authenticated %}
-									<td class="clickable-row body-text-color {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">{{ user.username }}</td>
+									<td class="clickable-row {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">{{ user.username }}</td>
 								{% endif %}
 								
 								{% if user.is_superuser %}
 								{% elif user|check_permission:'admin' %}
 									{% if request.user.is_superuser %}
-										<td class="clickable-row body-text-color {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">Admin</td>
+										<td class="clickable-row {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">Admin</td>
 									{% else %}
-										<td class="body-text-color">Admin</td>
+										<td>Admin</td>
 									{% endif %}
 								{% elif user.is_staff %}
-									<td class="clickable-row body-text-color {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">Staff</td>
+									<td class="clickable-row {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">Staff</td>
 								{% else %}
-									<td class="clickable-row body-text-color {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">Client</td>
+									<td class="clickable-row {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">Client</td>
 								{% endif %}
 							</tr>
 						{% endfor %}

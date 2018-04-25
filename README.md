@@ -14,9 +14,9 @@ The current project could still use an upgrade to `Django 2.x`, but at the momen
 
 1. Install `python 3.x`.
 2. Make sure you have `virtualenv` and `psql / postgresql` installed.
-3. Clone the project to a folder (lets say `BasicOO` folder).
-4. Make sure you run the commands from the folder you just created.
-5. Run the commands:
+3. Clone the project to a folder.
+4. Make sure you run the commands from the `django-basicoo` folder.
+5. Run the commands in the following order:
     - `virtualenv -p python3 .env`
     - `source .env/bin/activate`
     - `make install`

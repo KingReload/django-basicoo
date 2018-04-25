@@ -52,13 +52,17 @@ hr {
     position:relative;
     top: 50%;
     left: 50%;
-    width:30em;
-    height:18em;
+    width: 30em;
+    height: 18em;
     margin-left: -4em;
 }
 
 .form-control {
 	width: 70% !important;
+}
+
+tr .body-text-color {
+	background-color: white;
 }
 
 @media only screen and (min-width: 530px) {
@@ -83,7 +87,6 @@ hr {
 #users {
 	margin: 0 auto;
 	width: 80%;
-	background: white;
 }
 
 .alphabet a, #users-table tr {
@@ -134,9 +137,9 @@ hr {
 
 .page-footer {
 	position: static;
-	right:0;
-	left:0;
-	bottom:0;
+	right: 0;
+	left: 0;
+	bottom: 0;
 }
 
 html, body{

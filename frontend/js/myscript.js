@@ -6,10 +6,6 @@ $(document).ready(function($) {
     $(".jscolor").each(function() {
         $(this).addClass("form-control")
     });
-
-    $("body").click(function() {
-        console.log('click');
-    });
 });
 
 $(function () {

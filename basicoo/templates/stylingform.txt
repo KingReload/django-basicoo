@@ -18,7 +18,7 @@ li ul li .navbar-text-color {
 
 .navbar-text-color:hover {
     color: %s !important;
-    background: %s !important;
+    background-color: %s !important;
 }
 
 .body-gradient {
@@ -30,7 +30,7 @@ li ul li .navbar-text-color {
 }
 
 .footer-color {
-    background: %s !important;
+    background-color: %s !important;
 }
 
 .footer-text-color {
@@ -38,11 +38,11 @@ li ul li .navbar-text-color {
 }
 
 .button-text-color {
-    background: %s !important;
+    background-color: %s !important;
     color: %s !important;
 }
 
 .button-text-color:hover {
     color: %s !important;
-    background: %s !important;
+    background-color: %s !important;
 }

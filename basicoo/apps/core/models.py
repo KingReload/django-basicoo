@@ -37,6 +37,10 @@ class ExtraUserField(models.Model):
 
 
 class WebsiteStyle(models.Model):
+    template = models.ForeignKey(
+        "self",
+        blank=True,
+        null=True)
     navbar_gradient = models.CharField(
         max_length=254,
         blank=True,

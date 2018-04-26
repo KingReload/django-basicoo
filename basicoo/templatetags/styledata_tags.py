@@ -44,6 +44,9 @@ def get_style(value_type):
 		if styles and not styles.template_name:
 			style = getattr(styles, value_type)
 
+			if styles.template:
+				style = getattr(styles.template, value_type)
+
 	if style_templates and style is not None:
 		return style
 	else:

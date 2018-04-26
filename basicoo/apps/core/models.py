@@ -96,7 +96,7 @@ class WebsiteStyle(models.Model):
 
     def __str__(self):
         name = self.template_name
-        
+
         if name is not None:
             return str(name).title()
         else:

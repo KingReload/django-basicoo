@@ -15,6 +15,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='websitestyle',
             name='template_name',
-            field=models.CharField(blank=True, max_length=255, null=True, unique=True),
+            field=models.CharField(
+                blank=True,
+                max_length=255,
+                null=True,
+                unique=True),
         ),
     ]

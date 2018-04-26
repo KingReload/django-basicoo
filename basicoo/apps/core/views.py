@@ -430,9 +430,9 @@ class CreateStyles(PermissionRequiredMixin, CreateView):
 	template_name = 'core_pages/create.html'
 
 	def get(self, request, *args, **kwargs):
-		style_templates = WebsiteStyle.objects.filter(template_name=None).first()
-		
-		if style_templates is not None:
+		styles = WebsiteStyle.objects.filter(template_name=None).first()
+
+		if styles is not None:
 			return HttpResponseRedirect(reverse('core:home'))
 		else:
 			self.object = None

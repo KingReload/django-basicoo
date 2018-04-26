@@ -16,11 +16,17 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='websitestyle',
             name='button_hover_color',
-            field=colorfield.fields.ColorField(blank=True, max_length=18, null=True),
+            field=colorfield.fields.ColorField(
+                blank=True,
+                max_length=18,
+                null=True),
         ),
         migrations.AddField(
             model_name='websitestyle',
             name='navbar_text_hover',
-            field=colorfield.fields.ColorField(blank=True, max_length=18, null=True),
+            field=colorfield.fields.ColorField(
+                blank=True,
+                max_length=18,
+                null=True),
         ),
     ]

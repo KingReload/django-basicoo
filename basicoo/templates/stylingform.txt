@@ -1,0 +1,48 @@
+.navbar-gradient {
+    background: no-repeat fixed linear-gradient(%s) !important;
+    border-image: linear-gradient(%s) !important;
+}
+
+.navbar-text-color {
+    color: %s !important;
+    border-left: 1px %s solid;
+}
+
+li ul li .navbar-text-color {
+    border-image: linear-gradient(%s) !important;
+}
+
+.dropdown-menu {
+    border: 1px %s solid !important;
+}
+
+.navbar-text-color:hover {
+    color: %s !important;
+    background: %s !important;
+}
+
+.body-gradient {
+    background: no-repeat fixed linear-gradient(%s) !important;
+}
+
+.body-text-color {
+    color: %s !important;
+}
+
+.footer-color {
+    background: %s !important;
+}
+
+.footer-text-color {
+    color: %s !important;
+}
+
+.button-text-color {
+    background: %s !important;
+    color: %s !important;
+}
+
+.button-text-color:hover {
+    color: %s !important;
+    background: %s !important;
+}

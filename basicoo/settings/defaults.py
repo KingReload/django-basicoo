@@ -3,6 +3,7 @@ import os
 import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.abspath(__file__)))
 
@@ -10,6 +11,7 @@ location = lambda x: os.path.join(
     os.path.dirname(os.path.realpath(__file__)), x)
 
 # Setup the database from env
+
 env = environ.Env()
 env.read_env()
 
@@ -17,16 +19,19 @@ env.read_env()
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = '@hj9v)+nz&*rw49mk#zopa4saqotku+&dv#$-&kt225y7fqi#7'
 
 PROJECT_NAME = env.list('APP_NAME')[0]
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True  # True for dev version
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 
 # Application definition
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -50,6 +55,8 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'querycount.middleware.QueryCountMiddleware',
 ]
 
 ROOT_URLCONF = '%s.urls' % env.list('APP_NAME')[0]
@@ -76,7 +83,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = '%s.wsgi.application' % env.list('APP_NAME')[0]
-
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -110,6 +116,22 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+# Django querycoount
+
+QUERYCOUNT = {
+    'THRESHOLDS': {
+        'MEDIUM': 50,
+        'HIGH': 200,
+        'MIN_TIME_TO_LOG':0,
+        'MIN_QUERY_COUNT_TO_LOG':0
+    },
+    'IGNORE_REQUEST_PATTERNS': [],
+    'IGNORE_SQL_PATTERNS': [],
+    'DISPLAY_DUPLICATES': None,
+    'RESPONSE_HEADER': 'X-DjangoQueryCount-Count'
+}
+
+FILE_PATH = os.path.join(BASE_DIR, 'templates/stylingform.txt')
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

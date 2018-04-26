@@ -210,6 +210,7 @@ class StylesForm(forms.ModelForm):
 	class Meta:
 		model = WebsiteStyle
 		fields = '__all__'
+		exclude = ('template_css_field',)
 
 	def __init__(self, *args, **kwargs):
 		super(StylesForm, self).__init__(*args, **kwargs)

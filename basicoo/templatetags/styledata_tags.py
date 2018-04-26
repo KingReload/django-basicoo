@@ -36,18 +36,18 @@ def check_styles():
 
 
 @register.simple_tag
-def get_style(value_type):
-	style_templates = WebsiteStyle.objects.all()
+def get_styles():
+	style_template = WebsiteStyle.objects.filter(
+		template_name=None)
 	style = None
 
-	for styles in style_templates:
-		if styles and not styles.template_name:
-			style = getattr(styles, value_type)
+	for styles in style_template:
+		style = styles.template_css_field
 
-			if styles.template:
-				style = getattr(styles.template, value_type)
+		if styles.template:
+			style = styles.template.template_css_field
 
-	if style_templates and style is not None:
+	if style_template and style is not None:
 		return style
 	else:
 		return False

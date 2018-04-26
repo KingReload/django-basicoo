@@ -453,6 +453,28 @@ class CreateStyles(PermissionRequiredMixin, CreateView):
 	def form_valid(self, form):
 		self.object = form.save()
 
+		file_ = open(settings.FILE_PATH)
+		self.object.template_css_field = (
+			('%s' % file_.read()) % (
+				self.object.navbar_gradient,
+				self.object.navbar_gradient,
+				self.object.navbar_text_color,
+				self.object.navbar_text_color,
+				self.object.navbar_gradient,
+				self.object.navbar_text_color,
+				self.object.navbar_text_hover_color,
+				self.object.navbar_hover_color,
+				self.object.body_gradient,
+				self.object.body_text_color,
+				self.object.footer_color,
+				self.object.footer_text_color,
+				self.object.button_color,
+				self.object.button_text_color,
+				self.object.button_text_hover_color,
+				self.object.button_hover_color))
+
+		self.object.save()
+
 		return HttpResponseRedirect(reverse('core:home'))
 
 	def form_invalid(self, form, request):
@@ -488,6 +510,28 @@ class UpdateStyles(PermissionRequiredMixin, UpdateView):
 
 	def form_valid(self, form):
 		self.object = form.save()
+
+		file_ = open(settings.FILE_PATH)
+		self.object.template_css_field = (
+			('%s' % file_.read()) % (
+				self.object.navbar_gradient,
+				self.object.navbar_gradient,
+				self.object.navbar_text_color,
+				self.object.navbar_text_color,
+				self.object.navbar_gradient,
+				self.object.navbar_text_color,
+				self.object.navbar_text_hover_color,
+				self.object.navbar_hover_color,
+				self.object.body_gradient,
+				self.object.body_text_color,
+				self.object.footer_color,
+				self.object.footer_text_color,
+				self.object.button_color,
+				self.object.button_text_color,
+				self.object.button_text_hover_color,
+				self.object.button_hover_color))
+
+		self.object.save()
 
 		if self.object.template_name is not None:
 			return HttpResponseRedirect(

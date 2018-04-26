@@ -25,44 +25,7 @@
 		{% endif %}
 		
 		<style>
-			.navbar-gradient {
-				background: no-repeat fixed linear-gradient({% get_style 'navbar_gradient' %}) !important;
-			}
-
-			.navbar-text-color {
-				color: {% get_style 'navbar_text_color' %} !important;
-			}
-
-			.navbar-text-color:hover {
-				color: {% get_style 'navbar_text_hover_color' %} !important;
-				background: {% get_style 'navbar_hover_color' %} !important;
-			}
-
-			.body-gradient {
-				background: no-repeat fixed linear-gradient({% get_style 'body_gradient' %}) !important;
-			}
-
-			.body-text-color {
-				color: {% get_style 'body_text_color' %} !important;
-			}
-
-			.footer-color {
-				background: {% get_style 'footer_color' %} !important;
-			}
-
-			.footer-text-color {
-				color: {% get_style 'footer_text_color' %} !important;
-			}
-
-			.button-text-color {
-				background: {% get_style 'button_color' %} !important;
-				color: {% get_style 'button_text_color' %} !important;
-			}
-
-			.button-text-color:hover {
-				color: {% get_style 'button_text_hover_color' %} !important;
-				background: {% get_style 'button_hover_color' %} !important;
-			}
+			{% get_styles %}
 		</style>
 	</head>
 	{% block wrapper %}

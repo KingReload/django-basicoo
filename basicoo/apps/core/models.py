@@ -97,6 +97,9 @@ class WebsiteStyle(models.Model):
         max_length=255,
         blank=True,
         null=True)
+    template_css_field = models.TextField(
+        blank=True,
+        null=True)
 
     def __str__(self):
         name = self.template_name

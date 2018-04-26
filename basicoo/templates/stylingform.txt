@@ -9,7 +9,7 @@
 }
 
 li ul li .navbar-text-color {
-    border-image: linear-gradient(%s) !important;
+    border-image: linear-gradient(90deg, rgba(255,0,0,0), rgba(255,0,0,0)) !important;
 }
 
 .dropdown-menu {

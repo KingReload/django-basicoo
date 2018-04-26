@@ -51,7 +51,6 @@ def css_setter(object_):
 			object_.navbar_gradient,
 			object_.navbar_text_color,
 			object_.navbar_text_color,
-			object_.navbar_gradient,
 			object_.navbar_text_color,
 			object_.navbar_text_hover_color,
 			object_.navbar_hover_color,

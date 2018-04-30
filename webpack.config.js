@@ -86,7 +86,6 @@ module.exports = [
           jQuery: "jquery"
       }),
       new CopyWebpackPlugin([
-        { from: 'frontend/js/jquery/jquery-1.12.1.js', to: 'jquery' },
         { from: 'frontend/js/datatables/datatables-1.10.16.js', to: 'datatables' },
         { from: 'frontend/js/datatable-control.js', to: '' },
         { from: 'frontend/css/', to: '../css' },

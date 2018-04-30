@@ -1,0 +1,118 @@
+#example_length label {
+	float:right;
+	margin-right:11%;
+}
+
+#example_filter label {
+	float:right;
+	margin-right:38%;
+}
+
+.dataTables_wrapper .dataTables_info {
+	margin-right:11%;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+	margin-right:32%;
+}
+
+@media screen and (min-width: 320px) and (max-width: 621px) {
+	#example_length label, #example_filter label, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate {
+		display:block;
+		margin:auto;
+	}
+
+	#example_length label {
+		width: 60%;
+	}
+
+	#example_filter label {
+		width: 80%;
+	}
+
+	.dataTables_wrapper .dataTables_info {
+		width: 70%;
+	}
+}
+
+@media screen and (min-width: 622px) and (max-width: 768px) {
+	#example_length label {
+		float:right;
+		margin-right:4%;
+	}
+
+	#example_filter label {
+		float:left;
+		margin-right:23%;
+	}
+
+	.dataTables_wrapper .dataTables_info {
+		float:right;
+		margin-right:4%;
+	}
+
+	.dataTables_wrapper .dataTables_paginate {
+		float:left;
+		margin-right:9%;
+	}
+}
+
+@media screen and (min-width: 769px) and (max-width: 907px) {
+	#example_length label {
+		float:right;
+		margin-right:4%;
+	}
+
+	#example_filter label {
+		float:right;
+		margin-right:15%;
+	}
+
+	.dataTables_wrapper .dataTables_info {
+		float:right;
+		margin-right:4%;
+	}
+
+	.dataTables_wrapper .dataTables_paginate {
+		float:right;
+		margin-right:0;
+	}
+}
+
+@media screen and (min-width: 908px) and (max-width: 1400px) {
+	#example_length label {
+		margin-right:4%;
+	}
+
+	#example_filter label {
+		margin-right:23%;
+	}
+
+	.dataTables_wrapper .dataTables_info {
+		margin-right:4%;
+	}
+
+	.dataTables_wrapper .dataTables_paginate {
+		margin-right:9%;
+	}
+}
+
+@media screen and (min-width: 1401px) and (max-width: 1894px) {
+	#example_length label {
+		float:right;
+		margin-right:11%;
+	}
+
+	#example_filter label {
+		float:right;
+		margin-right:31%;
+	}
+
+	.dataTables_wrapper .dataTables_info {
+		margin-right:11%;
+	}
+
+	.dataTables_wrapper .dataTables_paginate {
+		margin-right:22%;
+	}
+}

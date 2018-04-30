@@ -61,12 +61,12 @@ hr {
 	width: 70% !important;
 }
 
-#users-table tbody tr {
+#users-table tbody tr, #table-control tbody tr {
 	opacity: 1 !important;
 	background-color: white;
 }
 
-#users-table tbody tr:hover {
+#users-table tbody tr:hover, #table-control tbody tr:hover {
 	background-color: #fbf8e9 !important;
 }
 
@@ -94,7 +94,7 @@ hr {
 	width: 80%;
 }
 
-.alphabet a, #users-table tr {
+.alphabet a, #users-table tr, #table-control tr {
 	transition: background-color 0.3s ease-in-out;
 	-moz-transition: background-color 0.3s ease-in-out;
 	-webkit-transition: background-color 0.3s ease-in-out;

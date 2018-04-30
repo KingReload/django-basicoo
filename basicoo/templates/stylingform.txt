@@ -1,6 +1,6 @@
 .navbar-gradient {
-    background: no-repeat fixed linear-gradient(%s) !important;
-    border-image: linear-gradient(%s) !important;
+    background: no-repeat fixed linear-gradient(%s);
+    border-image: linear-gradient(%s);
 }
 
 .navbar-text-color {
@@ -9,11 +9,11 @@
 }
 
 li ul li .navbar-text-color {
-    border-image: linear-gradient(90deg, rgba(255,0,0,0), rgba(255,0,0,0)) !important;
+    border-image: linear-gradient(90deg, rgba(255,0,0,0), rgba(255,0,0,0));
 }
 
 .dropdown-menu {
-    border: 1px %s solid !important;
+    border: 1px %s solid;
 }
 
 .navbar-text-color:hover {
@@ -22,11 +22,11 @@ li ul li .navbar-text-color {
 }
 
 .body-gradient {
-    background: no-repeat fixed linear-gradient(%s) !important;
+    background: no-repeat fixed linear-gradient(%s);
 }
 
 .body-text-color {
-    color: %s !important;
+    color: %s;
 }
 
 .footer-color {
@@ -34,15 +34,15 @@ li ul li .navbar-text-color {
 }
 
 .footer-text-color {
-    color: %s !important;
+    color: %s;
 }
 
 .button-text-color {
-    background-color: %s !important;
-    color: %s !important;
+    background-color: %s;
+    color: %s;
 }
 
 .button-text-color:hover {
-    color: %s !important;
-    background-color: %s !important;
+    color: %s;
+    background-color: %s;
 }

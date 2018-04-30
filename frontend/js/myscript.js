@@ -3,21 +3,12 @@ $(document).ready(function($) {
         window.location = $(this).data("href");
     });
 
-    $(".jscolor").each(function() {
-        $(this).addClass("form-control")
-    });
+    if (window.location.pathname.startsWith('/update-styles/')) {
 
-    var save = document.getElementById("id_save_template").checked;
+        $(".jscolor").each(function() {
+            $(this).addClass("form-control")
+        });
 
-    if (save) {
-        $("#id_template_name").prop('required', true);
-        $(".template_name").show();
-    } else {
-        $("#id_template_name").prop('required', false);
-        $(".template_name").hide();
-    }
-    
-    $("#id_save_template").click(function () {
         var save = document.getElementById("id_save_template").checked;
 
         if (save) {
@@ -27,7 +18,19 @@ $(document).ready(function($) {
             $("#id_template_name").prop('required', false);
             $(".template_name").hide();
         }
-    });
+        
+        $("#id_save_template").click(function () {
+            var save = document.getElementById("id_save_template").checked;
+
+            if (save) {
+                $("#id_template_name").prop('required', true);
+                $(".template_name").show();
+            } else {
+                $("#id_template_name").prop('required', false);
+                $(".template_name").hide();
+            }
+        });
+    }
 });
 
 $(function () {

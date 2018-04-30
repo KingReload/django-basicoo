@@ -51,3 +51,9 @@ def get_styles():
 		return style
 	else:
 		return False
+
+
+@register.filter
+def startswith(value, arg):
+	"""Usage, {% if value|starts_with:"arg" %}"""
+	return value.startswith(arg)

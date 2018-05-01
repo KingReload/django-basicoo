@@ -8,6 +8,9 @@ urlpatterns = [
     url('', include(
         ('%s.apps.core.urls' % settings.PROJECT_NAME),
         namespace='core')),
+    url('', include(
+        ('%s.apps.switch.urls' % settings.PROJECT_NAME),
+        namespace='switch')),
 
     url(
         r'^login/$',

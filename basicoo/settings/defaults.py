@@ -32,6 +32,12 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 
 # Application definition
 
+# Make sure that if you create your own app within this project, to include it here (if you want to make it switchable)
+MY_INSTALLED_APPS = [
+    '%s.apps.core' % env.list('APP_NAME')[0],
+    '%s.apps.switch' % env.list('APP_NAME')[0],
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,10 +48,9 @@ INSTALLED_APPS = [
 
     'colorfield',
 
-    '%s.apps.core' % env.list('APP_NAME')[0],
     '%s.apps' % env.list('APP_NAME')[0],
     '%s' % env.list('APP_NAME')[0],
-]
+] + MY_INSTALLED_APPS
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',

@@ -20,7 +20,7 @@ from .forms import (
 	CreateStaff, PasswordForgotForm, PasswordResetForm,
 	SignUpForm, StylesForm, UserForm)
 
-from .viewfunctions import class_check, css_setter
+from .viewfunctions import class_check, css_setter, form_invalid
 
 # Classes for every function in the basic project.
 
@@ -43,19 +43,12 @@ class Signup(CreateView):
 		if form.is_valid():
 			return self.form_valid(form)
 		else:
-			return self.form_invalid(form, request)
+			return form_invalid(self, form, request)
 
 	def form_valid(self, form):
 		self.object = form.save()
 
 		return HttpResponseRedirect(reverse('core:home'))
-
-	def form_invalid(self, form, request):
-		for key, value in form.errors.items():
-			messages.error(request, "{0}: {1}".format(key, value))
-
-		return self.render_to_response(
-			self.get_context_data(form=form))
 
 
 class ForgotPassword(TemplateView):
@@ -71,7 +64,7 @@ class ForgotPassword(TemplateView):
 		if form.is_valid():
 			return self.form_valid(form, request)
 		else:
-			return self.form_invalid(form, request)
+			return form_invalid(self, form, request)
 
 	def form_valid(self, form, request):
 		exists = User.objects.filter(email=form.cleaned_data['email']).exists()
@@ -129,13 +122,6 @@ class ForgotPassword(TemplateView):
 					form=form,
 					errors=errors))
 
-	def form_invalid(self, form, request):
-		for key, value in form.errors.items():
-			messages.error(request, "{0}: {1}".format(key, value))
-
-		return self.render_to_response(
-			self.get_context_data(form=form))
-
 
 class ResetPassword(TemplateView):
 	template_name = 'core_pages/submitform.html'
@@ -169,7 +155,7 @@ class ResetPassword(TemplateView):
 		if form.is_valid():
 			return self.form_valid(form, user, extra_fields)
 		else:
-			return self.form_invalid(form, request)
+			return form_invalid(self, form, request)
 
 	def form_valid(self, form, user, extra_fields):
 		new_password = form.cleaned_data.get('new_password')
@@ -182,13 +168,6 @@ class ResetPassword(TemplateView):
 		extra_fields.save()
 
 		return HttpResponseRedirect(reverse('login'))
-
-	def form_invalid(self, form, request):
-		for key, value in form.errors.items():
-			messages.error(request, "{0}: {1}".format(key, value))
-
-		return self.render_to_response(
-			self.get_context_data(form=form))
 
 
 class Home(LoginRequiredMixin, TemplateView):
@@ -235,7 +214,7 @@ class ViewProfile(LoginRequiredMixin, TemplateView):
 		if form.is_valid():
 			return self.form_valid(form)
 		else:
-			return self.form_invalid(form, request)
+			return form_invalid(self, form, request)
 
 	def form_valid(self, form):
 		self.object = form.save()
@@ -264,13 +243,6 @@ class ViewProfile(LoginRequiredMixin, TemplateView):
 			self.object.save()
 
 		return HttpResponseRedirect(reverse('core:view-profile'))
-
-	def form_invalid(self, form, request):
-		for key, value in form.errors.items():
-			messages.error(request, "{0}: {1}".format(key, value))
-
-		return self.render_to_response(
-			self.get_context_data(form=form))
 
 
 class GetUsers(PermissionRequiredMixin, TemplateView):
@@ -375,7 +347,7 @@ class CreateStaff(PermissionRequiredMixin, CreateView):
 		if form.is_valid():
 			return self.form_valid(form)
 		else:
-			return self.form_invalid(form, request)
+			return form_invalid(self, form, request)
 
 	def form_valid(self, form):
 		self.object = form.save()
@@ -385,13 +357,6 @@ class CreateStaff(PermissionRequiredMixin, CreateView):
 		class_check(self.object, permission)
 
 		return HttpResponseRedirect(reverse('core:home'))
-
-	def form_invalid(self, form, request):
-		for key, value in form.errors.items():
-			messages.error(request, "{0}: {1}".format(key, value))
-
-		return self.render_to_response(
-			self.get_context_data(form=form))
 
 
 class CreateStyles(PermissionRequiredMixin, CreateView):
@@ -422,7 +387,7 @@ class CreateStyles(PermissionRequiredMixin, CreateView):
 		if form.is_valid():
 			return self.form_valid(form)
 		else:
-			return self.form_invalid(form, request)
+			return form_invalid(self, form, request)
 
 	def form_valid(self, form):
 		self.object = form.save()
@@ -430,13 +395,6 @@ class CreateStyles(PermissionRequiredMixin, CreateView):
 		css_setter(self.object)
 
 		return HttpResponseRedirect(reverse('core:home'))
-
-	def form_invalid(self, form, request):
-		for key, value in form.errors.items():
-			messages.error(request, "{0}: {1}".format(key, value))
-
-		return self.render_to_response(
-			self.get_context_data(form=form))
 
 
 class UpdateStyles(PermissionRequiredMixin, UpdateView):
@@ -463,7 +421,7 @@ class UpdateStyles(PermissionRequiredMixin, UpdateView):
 		if form.is_valid():
 			return self.form_valid(form)
 		else:
-			return self.form_invalid(form, request)
+			return form_invalid(self, form, request)
 
 	def form_valid(self, form):
 		self.object = form.save()
@@ -476,10 +434,3 @@ class UpdateStyles(PermissionRequiredMixin, UpdateView):
 		else:
 			return HttpResponseRedirect(
 				reverse('core:update-styles', args=[self.object.id]))
-
-	def form_invalid(self, form, request):
-		for key, value in form.errors.items():
-			messages.error(request, "{0}: {1}".format(key, value))
-
-		return self.render_to_response(
-			self.get_context_data(form=form))

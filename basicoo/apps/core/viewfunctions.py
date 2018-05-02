@@ -66,3 +66,11 @@ def css_setter(object_):
 	object_.save()
 
 	return object_
+
+
+def form_invalid(self, form, request):
+	for key, value in form.errors.items():
+		messages.error(request, "{0}: {1}".format(key, value))
+
+	return self.render_to_response(
+		self.get_context_data(form=form))

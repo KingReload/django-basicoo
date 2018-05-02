@@ -138,7 +138,7 @@ class ForgotPassword(TemplateView):
 
 
 class ResetPassword(TemplateView):
-	template_name = 'core_pages/action_pages/pw_reset.html'
+	template_name = 'core_pages/submitform.html'
 
 	def get(self, request, *args, **kwargs):
 		if 'user_id' in self.request.GET:
@@ -149,8 +149,11 @@ class ResetPassword(TemplateView):
 
 			if user and extra_fields:
 				form = PasswordResetForm
+				formname = 'Password Reset'
 				return self.render_to_response(
-					self.get_context_data(form=form))
+					self.get_context_data(
+						form=form,
+						formname=formname))
 			else:
 				return HttpResponseRedirect(reverse('login'))
 		else:
@@ -194,7 +197,7 @@ class Home(LoginRequiredMixin, TemplateView):
 
 class ViewProfile(LoginRequiredMixin, TemplateView):
 	form_class = UserForm
-	template_name = 'core_pages/create.html'
+	template_name = 'core_pages/submitform.html'
 
 	def get(self, request, *args, **kwargs):
 		user = self.request.user
@@ -353,7 +356,7 @@ class DeleteUser(PermissionRequiredMixin, TemplateView):
 class CreateStaff(PermissionRequiredMixin, CreateView):
 	form_class = CreateStaff
 	permission_required = 'auth.admin'
-	template_name = 'core_pages/create.html'
+	template_name = 'core_pages/submitform.html'
 
 	def get(self, *args, **kwargs):
 		self.object = None
@@ -394,7 +397,7 @@ class CreateStaff(PermissionRequiredMixin, CreateView):
 class CreateStyles(PermissionRequiredMixin, CreateView):
 	form_class = StylesForm
 	permission_required = 'is_superuser'
-	template_name = 'core_pages/create.html'
+	template_name = 'core_pages/submitform.html'
 
 	def get(self, *args, **kwargs):
 		styles = WebsiteStyle.objects.filter(
@@ -440,7 +443,7 @@ class UpdateStyles(PermissionRequiredMixin, UpdateView):
 	model = WebsiteStyle
 	form_class = StylesForm
 	permission_required = 'is_superuser'
-	template_name = 'core_pages/create.html'
+	template_name = 'core_pages/submitform.html'
 
 	def get(self, *args, **kwargs):
 		self.object = self.get_object()

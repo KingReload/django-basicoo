@@ -1,7 +1,13 @@
 from django.conf.urls import url
 from .views import (
-    SwitchHome)
+    SwitchView, UpdateSwitch)
 
 urlpatterns = [
-    url(r'^switchhome/$', SwitchHome.as_view(), name='switchhome'),
+    url(r'^switch/$', SwitchView.as_view(), name='create-switch'),
+
+    url(
+        r'^update-switch/(?P<pk>[0-9]+)/$',
+        UpdateSwitch.as_view(),
+        name='update-switch'
+    ),
 ]

@@ -2,6 +2,8 @@ from django import template
 
 from basicoo.apps.core.models import (
 	WebsiteStyle)
+from basicoo.apps.switch.models import (
+	Switch)
 
 register = template.Library()
 
@@ -36,6 +38,17 @@ def check_styles():
 
 
 @register.simple_tag
+def check_switch():
+	switch = Switch.objects.all().first()
+
+	if switch is not None:
+		return "/update-switch/%s/" % (
+			switch.id)
+	else:
+		return "/switch/"
+
+
+@register.simple_tag
 def get_styles():
 	style_template = WebsiteStyle.objects.filter(
 		template_name=None)
@@ -51,9 +64,3 @@ def get_styles():
 		return style
 	else:
 		return False
-
-
-@register.filter
-def startswith(value, arg):
-	"""Usage, {% if value|starts_with:"arg" %}"""
-	return value.startswith(arg)

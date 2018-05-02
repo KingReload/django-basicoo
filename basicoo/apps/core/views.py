@@ -20,7 +20,7 @@ from .forms import (
 	CreateStaff, PasswordForgotForm, PasswordResetForm,
 	SignUpForm, StylesForm, UserForm)
 
-from .viewfunctions import class_check, css_setter
+from basicoo.apps.viewfunctions import class_check, css_setter
 
 # Classes for every function in the basic project.
 
@@ -356,8 +356,11 @@ class CreateStaff(PermissionRequiredMixin, CreateView):
 		self.object = None
 		form_class = self.get_form_class()
 		form = self.get_form(form_class)
+		formname = 'Add Staff'
 		return self.render_to_response(
-			self.get_context_data(form=form))
+			self.get_context_data(
+				form=form,
+				formname=formname))
 
 	def post(self, request, *args, **kwargs):
 		self.object = None
@@ -390,8 +393,9 @@ class CreateStyles(PermissionRequiredMixin, CreateView):
 	permission_required = 'is_superuser'
 	template_name = 'core_pages/create.html'
 
-	def get(self, request, *args, **kwargs):
-		styles = WebsiteStyle.objects.filter(template_name=None).first()
+	def get(self, *args, **kwargs):
+		styles = WebsiteStyle.objects.filter(
+			template_name=None).first()
 
 		if styles is not None:
 			return HttpResponseRedirect(reverse('core:home'))
@@ -399,8 +403,11 @@ class CreateStyles(PermissionRequiredMixin, CreateView):
 			self.object = None
 			form_class = self.get_form_class()
 			form = self.get_form(form_class)
+			formname = 'Add Styles'
 			return self.render_to_response(
-				self.get_context_data(form=form))
+				self.get_context_data(
+					form=form,
+					formname=formname))
 
 	def post(self, request, *args, **kwargs):
 		self.object = None
@@ -432,12 +439,15 @@ class UpdateStyles(PermissionRequiredMixin, UpdateView):
 	permission_required = 'is_superuser'
 	template_name = 'core_pages/create.html'
 
-	def get(self, request, *args, **kwargs):
+	def get(self, *args, **kwargs):
 		self.object = self.get_object()
 		form = StylesForm(
 			instance=WebsiteStyle.objects.get(pk=self.object.id))
+		formname = 'Update Styles'
 		return self.render_to_response(
-			self.get_context_data(form=form))
+			self.get_context_data(
+				form=form,
+				formname=formname))
 
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object()

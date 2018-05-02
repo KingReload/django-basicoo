@@ -1,6 +1,8 @@
 from django.contrib.auth.models import Permission
 from django.conf import settings
 
+from basicoo.apps.switch.models import Switch
+
 # Definitions to get the same outcome used for multiple classes.
 
 
@@ -66,3 +68,32 @@ def css_setter(object_):
 	object_.save()
 
 	return object_
+
+
+def check_space(value):
+	if not value.isspace():
+		return True
+	else:
+		return False
+
+
+def switch(value):
+	switch = None
+
+	if value is None:
+		switch = Switch.objects.all().first()
+
+	if switch is not None or value is not None:
+		if switch is not None:
+			app1 = switch.app1
+			boolean = check_space(switch.app1)
+		else:
+			app1 = value
+			boolean = check_space(value)
+		
+		if boolean:
+			app = '%s.apps.%s' % (settings.PROJECT_NAME, app1)
+			settings.SWITCH_APPS = []
+			settings.SWITCH_APPS.append(app)
+		else:
+			settings.SWITCH_APPS = []

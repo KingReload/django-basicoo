@@ -20,7 +20,7 @@
 							<ul class="nav navbar-nav navbar-right">
 								{% if user.is_superuser %}
 									<li class="nav-item">
-										<a class="nav-link navbar-text-color" href="{% url 'switch:switchhome' %}">Switch</a>
+										<a class="nav-link navbar-text-color" href="{% check_switch %}">Switch</a>
 									</li>
 									<li class="nav-item">
 										<a class="nav-link navbar-text-color" href="{% check_styles %}">Styles</a>

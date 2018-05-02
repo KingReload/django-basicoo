@@ -40,7 +40,10 @@ class WebsiteStyle(models.Model):
     template = models.ForeignKey(
         "self",
         blank=True,
-        null=True)
+        null=True,
+        help_text=(
+            'Select one of the templates you want to use.' +
+            'You can also choose not to select any template.'))
     navbar_gradient = models.CharField(
         max_length=254,
         blank=True,
@@ -91,12 +94,16 @@ class WebsiteStyle(models.Model):
         null=True)
 
     save_template = models.BooleanField(
-        default=False)
+        default=False,
+        help_text=(
+            'Do you want to save the template?' +
+            ' Yes / No'))
     template_name = models.CharField(
         unique=True,
         max_length=255,
         blank=True,
-        null=True)
+        null=True,
+        help_text='Set a templatename for the template.')
     template_css_field = models.TextField(
         blank=True,
         null=True)

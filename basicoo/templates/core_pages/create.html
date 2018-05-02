@@ -3,21 +3,6 @@
 {% block title %}Create{% endblock %}
 
 {% block content %}
-	<h2 class="body-text-color">Create</h2>
-	<form method="post" class="page_form">
-		{% csrf_token %}
-		{% for field in form %}
-			<p class="body-text-color {{ field.name }}">
-				{{ field.label_tag }}<br>
-				{{ field }}
-				{% if field.help_text %}
-					<small class="help-field">{{ field.help_text }}</small>
-				{% endif %}
-				{% for error in field.errors %}
-					<p class="error-field">{{ error }}</p>
-				{% endfor %}
-			</p>
-		{% endfor %}
-		<button type="submit" class="btn btn-primary button-text-color">Submit</button>
-	</form>
+	<h2 class="body-text-color">{{ formname }}</h2>
+	{% include 'partials/createform.html' %}
 {% endblock %}

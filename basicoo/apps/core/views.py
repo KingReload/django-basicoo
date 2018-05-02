@@ -194,7 +194,7 @@ class Home(LoginRequiredMixin, TemplateView):
 
 class ViewProfile(LoginRequiredMixin, TemplateView):
 	form_class = UserForm
-	template_name = 'core_pages/view_pages/view_profile.html'
+	template_name = 'core_pages/create.html'
 
 	def get(self, request, *args, **kwargs):
 		user = self.request.user
@@ -214,9 +214,12 @@ class ViewProfile(LoginRequiredMixin, TemplateView):
 		else:
 			form = UserForm(instance=user, user=user)
 
+		formname = 'Profile'
+
 		return self.render_to_response(
 			self.get_context_data(
-				form=form))
+				form=form,
+				formname=formname))
 
 	def post(self, request, *args, **kwargs):
 		user = self.request.user

@@ -22,6 +22,7 @@ watch:
 exampledata:
 	./manage.py migrate
 	./manage.py loaddata exampledata/users.json
+	./manage.py loaddata exampledata/templates.json
 
 docs:
 	$(MAKE) -C docs html

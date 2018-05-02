@@ -1,0 +1,23 @@
+[
+    {
+        "fields": {
+            "navbar_gradient": "90deg, #111111, #111111",
+            "navbar_text_color": "#DDDDDD",
+            "navbar_hover_color": "#2B2B2B",
+            "navbar_text_hover_color": "white",
+            "body_gradient": "deg90, #1C1C1C, #1C1C1C",
+            "body_text_color": "#DDDDDD",
+            "footer_color": "#141414",
+            "footer_text_color": "##DDDDDD",
+            "button_color": "#DB7500",
+            "button_text_color": "#DDDDDD",
+            "button_hover_color": "#2B84BF",
+            "button_text_hover_color": "white",
+            "save_template": true,
+            "template_name": "Dark Theme",
+            "template_css_field": ".navbar-gradient { background: no-repeat fixed linear-gradient(90deg, #111111, #111111); border-image: linear-gradient(90deg, #111111, #111111); } .navbar-text-color { color: #DDDDDD !important; border-left: 1px #DDDDDD solid; } li ul li .navbar-text-color { border-image: linear-gradient(90deg, rgba(255,0,0,0), rgba(255,0,0,0)); } .dropdown-menu { border: 1px #DDDDDD solid; } .navbar-text-color:hover { color: white !important; background-color: #2B2B2B !important; } .body-gradient { background: no-repeat fixed linear-gradient(90deg, #1C1C1C, #1C1C1C); } .body-text-color { color: #DDDDDD; } .footer-color { background-color: #141414 !important; } .footer-text-color { color: #DDDDDD; } .button-text-color { background-color: #DB7500; color: #DDDDDD; } .button-text-color:hover { color: white; background-color: #2B84BF; }"
+        },
+        "model": "core.websitestyle",
+        "pk": 1
+    }
+]

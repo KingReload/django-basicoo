@@ -231,15 +231,5 @@ class StylesForm(forms.ModelForm):
 				field.help_text = (
 					'Please define a color, you can use' +
 					' the color hex, but also the color name.')
-			elif field_name is 'save_template':
-				field.help_text = (
-					'Do you want to save the template?' +
-					' Yes / No')
 			elif field_name is 'template':
-				field.help_text = (
-					'Select one of the templates you want to use. \n' +
-					'You can also choose not to select any template.')
 				field.queryset = WebsiteStyle.objects.all().exclude(template_name=None)
-			else:
-				field.help_text = (
-					'Set a templatename for the template.')

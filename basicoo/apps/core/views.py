@@ -1,7 +1,6 @@
 import smtplib
 import base64
 
-from django.contrib import messages
 from django.contrib.auth.mixins import (
 	LoginRequiredMixin, PermissionRequiredMixin)
 from django.contrib.auth.tokens import default_token_generator

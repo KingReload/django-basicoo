@@ -1,4 +1,5 @@
 from django.contrib.auth.models import Permission
+from django.contrib import messages
 from django.conf import settings
 
 # Definitions to get the same outcome used for multiple classes.

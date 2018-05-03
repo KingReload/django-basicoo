@@ -10,7 +10,8 @@ from colorfield.fields import ColorField
 
 class ExtraUserField(models.Model):
     user = models.ForeignKey(
-        User)
+        User,
+        on_delete=models.CASCADE)
     address = models.CharField(
         max_length=254,
         blank=True,
@@ -41,6 +42,7 @@ class WebsiteStyle(models.Model):
         "self",
         blank=True,
         null=True,
+        on_delete=models.SET_NULL,
         help_text=(
             'Select one of the templates you want to use.' +
             'You can also choose not to select any template.'))
@@ -115,3 +117,21 @@ class WebsiteStyle(models.Model):
             return str(name).title()
         else:
             return str(self.id).title()
+
+
+class Log(models.Model):
+    log_action = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True)
+    log = models.TextField()
+    datetime = models.DateTimeField(
+        auto_now=True)
+
+    def __str__(self):
+        return str(self.log_action).title()

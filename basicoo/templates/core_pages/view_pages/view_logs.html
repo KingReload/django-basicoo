@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static  %}
+
+{% block title %}Logs{% endblock %}
+
+{% block extra_styles %}
+	<link rel="stylesheet" href="{% static 'css/datatables/datatables-media.css' %}">
+	<link rel="stylesheet" href="{% static 'css/datatables/datatables.css' %}">
+{% endblock extra_styles %}
+
+{% block extra_scripts %}
+	<script src="https://code.jquery.com/jquery-1.12.1.js" integrity="sha256-VuhDpmsr9xiKwvTIHfYWCIQ84US9WqZsLfR4P7qF6O8=" crossorigin="anonymous"></script>
+	<script src="{% static 'js/datatables/datatables-1.10.16.js' %}"></script>
+	<script src="{% static 'js/datatable-control.js' %}"></script>
+{% endblock extra_scripts %}
+
+{% block content %}
+    <div class="wrapper">
+        <h2 class="body-text-color">Logs</h2>
+        <div id="users" class="table-grid">
+            <table id="table-control" class="bordered gray">
+                <thead>
+                    <tr>
+                        <th class="col22 blue">Action / Time</th>
+                        <th class="col22 blue">Info</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% include 'partials/logs.html' %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

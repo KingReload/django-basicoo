@@ -19,7 +19,9 @@ from .forms import (
 	CreateStaff, PasswordForgotForm, PasswordResetForm,
 	SignUpForm, StylesForm, UserForm)
 
-from .viewfunctions import class_check, css_setter, form_invalid
+from .viewfunctions import (
+	class_check, create_log,
+	css_setter, form_invalid)
 
 # Classes for every function in the basic project.
 
@@ -272,8 +274,11 @@ class ViewUser(PermissionRequiredMixin, TemplateView):
 		id = request.GET['id']
 		user = User.objects.get(pk=id)
 		permission = request.POST['permission']
+		word1 = 'Update'
+		word2 = 'updated'
 
 		class_check(user, permission)
+		create_log(self.request.user, user, word1, word2, permission)
 
 		return HttpResponseRedirect(reverse('core:get-users'))
 
@@ -294,10 +299,18 @@ class BanUser(PermissionRequiredMixin, TemplateView):
 
 		if user.is_active:
 			user.is_active = False
+
+			word1 = 'Ban'
+			word2 = 'banned'
 		else:
 			user.is_active = True
 
+			word1 = 'Unban'
+			word2 = 'unbanned'
+
 		user.save()
+
+		create_log(self.request.user, user, word1, word2, None)
 
 		redirect_url = reverse('core:view-user')
 		extra_params = '?id=%s' % id if id else ''
@@ -319,6 +332,10 @@ class DeleteUser(PermissionRequiredMixin, TemplateView):
 	def post(self, request, *args, **kwargs):
 		id = request.GET['id']
 		user = User.objects.get(pk=id)
+		word1 = 'Delete'
+		word2 = 'deleted'
+
+		create_log(self.request.user, user, word1, word2, None)
 		user.delete()
 
 		return HttpResponseRedirect(reverse('core:get-users'))
@@ -352,8 +369,11 @@ class CreateStaff(PermissionRequiredMixin, CreateView):
 		self.object = form.save()
 
 		permission = form.cleaned_data.get('permission')
+		word1 = 'Create'
+		word2 = 'created'
 
 		class_check(self.object, permission)
+		create_log(self.request.user, self.object, word1, word2, permission)
 
 		return HttpResponseRedirect(reverse('core:home'))
 
@@ -433,3 +453,8 @@ class UpdateStyles(PermissionRequiredMixin, UpdateView):
 		else:
 			return HttpResponseRedirect(
 				reverse('core:update-styles', args=[self.object.id]))
+
+
+class ViewLogs(PermissionRequiredMixin, TemplateView):
+	permission_required = 'is_superuser'
+	template_name = 'core_pages/view_pages/view_logs.html'

@@ -131,7 +131,8 @@ QUERYCOUNT = {
     'RESPONSE_HEADER': 'X-DjangoQueryCount-Count'
 }
 
-FILE_PATH = os.path.join(BASE_DIR, 'templates/stylingform.txt')
+STYLING_FILE = os.path.join(BASE_DIR, 'templates/stylingform.txt')
+LOG_FILE = os.path.join(BASE_DIR, 'templates/partials/logs.html')
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

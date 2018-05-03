@@ -14,7 +14,7 @@ from django.views.generic import (
 	CreateView, TemplateView, UpdateView)
 
 from .models import (
-	ExtraUserField, WebsiteStyle)
+	ExtraUserField, Log, WebsiteStyle)
 from .forms import (
 	CreateStaff, PasswordForgotForm, PasswordResetForm,
 	SignUpForm, StylesForm, UserForm)
@@ -458,3 +458,8 @@ class UpdateStyles(PermissionRequiredMixin, UpdateView):
 class ViewLogs(PermissionRequiredMixin, TemplateView):
 	permission_required = 'is_superuser'
 	template_name = 'core_pages/view_pages/view_logs.html'
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['logs'] = Log.objects.all().order_by('-datetime')
+		return context

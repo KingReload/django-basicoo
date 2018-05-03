@@ -91,20 +91,6 @@ def create_log(user1, user2, word1, word2, permission):
 		log = log + ' with permisson ( %s )' % (
 			permission)
 
-	html_format = (
-		'<tr class="log"> \n' +
-		'\t <td class="log_action"> \n' +
-		'\t\t <span class="action">' + log_action + '</span> \n' +
-		'\t\t <span class="time">' + str(datetime.datetime.now()) + '</span> \n' +
-		'\t </td> \n' +
-		'\t <td class="log_text">' + log + '</td> \n' +
-		'</tr> \n')
-
-	file_ = open(settings.LOG_FILE, 'a+')
-	file_info = file_.read()
-	file_.write(file_info + html_format)
-	file_.close()
-
 	Log.objects.create(
 		log_action=log_action,
 		user=user1,

@@ -26,7 +26,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% include 'partials/logs.html' %}
+                    {% for log in logs %}
+                        <tr class="log"> 
+                            <td class="log_action"> 
+                                <span class="action">{{ log.log_action }}</span> 
+                                <span class="time">{{ log.datetime }}</span> 
+                            </td> 
+                            <td class="log_text">{{ log.log }}</td> 
+                        </tr>
+                   {% endfor %}
                 </tbody>
             </table>
         </div>

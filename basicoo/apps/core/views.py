@@ -4,6 +4,7 @@ import base64
 from django.contrib.auth.mixins import (
 	LoginRequiredMixin, PermissionRequiredMixin)
 from django.contrib.auth.tokens import default_token_generator
+from django.core.cache.backends.locmem import LocMemCache
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.utils.http import int_to_base36
@@ -26,7 +27,7 @@ from .viewfunctions import (
 # Classes for every function in the basic project.
 
 
-class Signup(CreateView):
+class Signup(CreateView, LocMemCache):
 	form_class = SignUpForm
 	template_name = 'unauthorized/signup.html'
 
@@ -52,7 +53,7 @@ class Signup(CreateView):
 		return HttpResponseRedirect(reverse('core:home'))
 
 
-class ForgotPassword(TemplateView):
+class ForgotPassword(TemplateView, LocMemCache):
 	template_name = 'unauthorized/pw_forgot.html'
 
 	def get(self, *args, **kwargs):
@@ -124,7 +125,7 @@ class ForgotPassword(TemplateView):
 					errors=errors))
 
 
-class ResetPassword(TemplateView):
+class ResetPassword(TemplateView, LocMemCache):
 	template_name = 'core_pages/submitform.html'
 
 	def get(self, request, *args, **kwargs):
@@ -171,7 +172,7 @@ class ResetPassword(TemplateView):
 		return HttpResponseRedirect(reverse('login'))
 
 
-class Home(LoginRequiredMixin, TemplateView):
+class Home(LoginRequiredMixin, TemplateView, LocMemCache):
 	template_name = 'core_pages/home.html'
 
 
@@ -341,7 +342,7 @@ class DeleteUser(PermissionRequiredMixin, TemplateView):
 		return HttpResponseRedirect(reverse('core:get-users'))
 
 
-class CreateStaff(PermissionRequiredMixin, CreateView):
+class CreateStaff(PermissionRequiredMixin, CreateView, LocMemCache):
 	form_class = CreateStaff
 	permission_required = 'auth.admin'
 	template_name = 'core_pages/submitform.html'
@@ -378,7 +379,7 @@ class CreateStaff(PermissionRequiredMixin, CreateView):
 		return HttpResponseRedirect(reverse('core:home'))
 
 
-class CreateStyles(PermissionRequiredMixin, CreateView):
+class CreateStyles(PermissionRequiredMixin, CreateView, LocMemCache):
 	form_class = StylesForm
 	permission_required = 'is_superuser'
 	template_name = 'core_pages/submitform.html'

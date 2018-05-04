@@ -1,6 +1,7 @@
 import os
 
 import environ
+import memcache
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 

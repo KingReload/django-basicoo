@@ -5,5 +5,7 @@ register = template.Library()
 
 @register.filter()
 def check_permission(user, permission):
-	if user.user_permissions.filter(codename=permission).exists():
+	if user.has_perm('auth.%s' % permission):
 		return True
+	else:
+		pass

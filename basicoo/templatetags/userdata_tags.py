@@ -7,5 +7,4 @@ register = template.Library()
 def check_permission(user, permission):
 	if user.has_perm('auth.%s' % permission):
 		return True
-	else:
-		pass
+	return False

@@ -45,8 +45,7 @@
 										<td class="clickable-row {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">{{ user.username }}</td>
 									{% endif %}
 									
-									{% if user.is_superuser %}
-									{% elif user|check_permission:'admin' %}
+									{% if user|check_permission:'admin' %}
 										{% if request.user.is_superuser %}
 											<td class="clickable-row {% if user.is_active == False %}error-field{% endif %}" data-href="{% url 'core:view-user' %}?id={{ user.id }}">Admin</td>
 										{% else %}

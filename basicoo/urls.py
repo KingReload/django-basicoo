@@ -1,4 +1,5 @@
 from django.conf.urls import include, url
+from django.views.decorators.cache import cache_page
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.conf import settings
@@ -11,7 +12,7 @@ urlpatterns = [
 
     url(
         r'^login/$',
-        auth_views.login,
+        cache_page(60 * 30)(auth_views.login),
         {'template_name': 'unauthorized/login.html'},
         name='login'
     ),

@@ -4,7 +4,6 @@ import base64
 from django.contrib.auth.mixins import (
 	LoginRequiredMixin, PermissionRequiredMixin)
 from django.contrib.auth.tokens import default_token_generator
-from django.core.cache.backends.locmem import LocMemCache
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.utils.http import int_to_base36
@@ -27,7 +26,7 @@ from .viewfunctions import (
 # Classes for every function in the basic project.
 
 
-class Signup(CreateView, LocMemCache):
+class Signup(CreateView):
 	form_class = SignUpForm
 	template_name = 'unauthorized/signup.html'
 
@@ -53,7 +52,7 @@ class Signup(CreateView, LocMemCache):
 		return HttpResponseRedirect(reverse('core:home'))
 
 
-class ForgotPassword(TemplateView, LocMemCache):
+class ForgotPassword(TemplateView):
 	template_name = 'unauthorized/pw_forgot.html'
 
 	def get(self, *args, **kwargs):
@@ -125,7 +124,7 @@ class ForgotPassword(TemplateView, LocMemCache):
 					errors=errors))
 
 
-class ResetPassword(TemplateView, LocMemCache):
+class ResetPassword(TemplateView):
 	template_name = 'core_pages/submitform.html'
 
 	def get(self, request, *args, **kwargs):
@@ -172,7 +171,7 @@ class ResetPassword(TemplateView, LocMemCache):
 		return HttpResponseRedirect(reverse('login'))
 
 
-class Home(LoginRequiredMixin, TemplateView, LocMemCache):
+class Home(LoginRequiredMixin, TemplateView):
 	template_name = 'core_pages/home.html'
 
 
@@ -342,7 +341,7 @@ class DeleteUser(PermissionRequiredMixin, TemplateView):
 		return HttpResponseRedirect(reverse('core:get-users'))
 
 
-class CreateStaff(PermissionRequiredMixin, CreateView, LocMemCache):
+class CreateStaff(PermissionRequiredMixin, CreateView):
 	form_class = CreateStaff
 	permission_required = 'auth.admin'
 	template_name = 'core_pages/submitform.html'
@@ -379,7 +378,7 @@ class CreateStaff(PermissionRequiredMixin, CreateView, LocMemCache):
 		return HttpResponseRedirect(reverse('core:home'))
 
 
-class CreateStyles(PermissionRequiredMixin, CreateView, LocMemCache):
+class CreateStyles(PermissionRequiredMixin, CreateView):
 	form_class = StylesForm
 	permission_required = 'is_superuser'
 	template_name = 'core_pages/submitform.html'

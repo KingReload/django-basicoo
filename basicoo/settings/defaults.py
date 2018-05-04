@@ -1,7 +1,6 @@
 import os
 
 import environ
-import memcache
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
@@ -57,6 +56,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
+    'django.middleware.common.CommonMiddleware',
     'querycount.middleware.QueryCountMiddleware',
 ]
 

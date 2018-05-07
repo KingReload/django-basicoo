@@ -1,4 +1,4 @@
-.wrapper { width: 100%; margin: 0px auto; padding-top: 20px; min-height: 600px; }
+.wrapper { width: 100%; margin: 0px auto; padding-top: 20px; margin-bottom:100px; }
 
 .table-grid h1 { padding-top: 35px; font-size: 20px; }
 .table-grid table { *border-collapse: collapse; /* IE7 and lower */    border-spacing: 0; width: 100%; font-family: 'trebuchet MS', 'Lucida sans', Arial; font-size: 12px; color:Black; }
